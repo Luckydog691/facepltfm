@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.test.dao.facedatabase.FeatureDao">
+
+    <select id="findByFaceId" parameterType="java.lang.String" resultType="Feature" >
+		SELECT id,feature,FaceInfoid
+		FROM feature
+		where FaceInfoid = #{faceId,jdbcType=VARCHAR}
+	</select>
+	<select id="findByFeatureId" parameterType="java.lang.String" resultType="Feature" >
+		SELECT id,feature,FaceInfoid
+		FROM feature
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="delete" parameterType="java.lang.String" >
+		delete from feature
+    	where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByFaceId" parameterType="java.lang.String" >
+		delete from feature
+    	where FaceInfoid = #{id,jdbcType=VARCHAR}
+	</delete>
+</mapper>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.test.dao.facedatabase.Faceinfo_FacegroupDao">
+
+    <select id="findByGroupId" parameterType="java.lang.Integer" resultType="Faceinfo_Facegroup" >
+		SELECT id,faceinfoID,groupID
+		FROM faceinfo_facegroup
+		where groupID = #{groupId,jdbcType=INTEGER}
+	</select>
+</mapper>

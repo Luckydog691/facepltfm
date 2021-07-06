@@ -1,0 +1,155 @@
+<% layout('/layouts/default.html', {title: '结果列表', libs: ['validate']}){ %>
+<div class="main-content">
+	<div class="box box-main">
+		<div class="box-header with-border">
+			<div class="box-title">
+				<i class="fa icon-note"></i> ${text(calresult.isNewRecord ? '新增calresult' : '查看calresult')}
+			</div>
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="form-unit">${text('基本信息')}</div>
+			<div class="row">
+				<div class="col-sm-offset-2 col-sm-10">
+					<label class="control-label col-sm-2"><b>任务ID: </b><i class="fa icon-question hide"></i></label>
+					<div class="col-sm-4">
+						${calresult.id}
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-offset-2 col-sm-10">
+					<label class="control-label col-sm-2">
+						<span class="required hide">*</span><b>起止时间: </b><i class="fa icon-question hide"></i></label>
+					<div class="col-sm-8">
+						${calresult.startTime} - ${calresult.finishTime}
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-offset-2 col-sm-10">
+					<label class="control-label col-sm-2">
+						<span class="required hide">*</span><b>操作类型: </b><i class="fa icon-question hide"></i></label>
+					<div class="col-sm-4">
+						${calresult.operateType}
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-offset-2 col-sm-10">
+					<label class="control-label col-sm-2">
+						<span class="required hide">*</span><b>操作用户: </b><i class="fa icon-question hide"></i></label>
+					<div class="col-sm-4">
+						${calresult.operateUserID}
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-offset-2 col-sm-10">
+					<label class="control-label col-sm-2">
+						<span class="required hide">*</span><b>操作结果: </b><i class="fa icon-question hide"></i></label>
+					<div class="col-sm-4">
+						${calresult.result}
+					</div>
+				</div>
+			</div>
+			<br>
+
+			<div class="form-unit">${text('详细信息')}</div>
+			<div class="row">
+				<div class="col-sm-offset-2 col-sm-10">
+					<label class="control-label col-sm-2">
+						<span class="required hide">*</span><b>Context: </b><i class="fa icon-question hide"></i></label>
+					<div class="col-sm-4" id="context">
+						无
+					</div>
+				</div>
+			</div>
+			<br>
+		</div>
+		<div class="box-footer">
+			<div class="row">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="button" class="btn btn-sm btn-default" id="btnCancel" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> ${text('关 闭')}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<% } %>
+<script>
+	$("#inputForm").validate({
+		submitHandler: function(form){
+			js.ajaxSubmitForm($(form), function(data){
+				js.showMessage(data.message);
+				if(data.result == Global.TRUE){
+					js.closeCurrentTabPage(function(contentWindow){
+						contentWindow.page();
+					});
+				}
+			}, "json");
+		}
+	});
+</script>
+<script>
+	var contextTag = document.getElementById("context");
+	var context='${calresult.context}';
+	context=transSpecialChar(context);
+	if(context){contextTag.innerHTML="";}
+	var jsonData = JSON.parse(context);
+
+	$.each(jsonData,function(index,value){
+		if(index!="picturepath"&&index!="feature"){
+			contextTag.innerHTML+=("<b>"+trans2Chn(index)+"("+index+")"+"</b> : "+value+"<br>");
+		}
+	});
+
+	$.each(jsonData,function(index,value){
+		if(index=="picturepath"){
+			for(var pic in value){
+				contextTag.innerHTML+=("<img src='/web"+value[pic]+"' style='max-width: 600px'><br>");
+				$.each(jsonData,function(index,value){
+					if(index=="feature"){
+						contextTag.innerHTML+=("<b>"+index+"</b> : "+value+"<br>");
+					}
+				});
+			}
+		}
+	});
+	function transSpecialChar(jsonStr){
+		if(jsonStr!=undefined&&jsonStr!=""&&jsonStr!='null'){
+			jsonStr=jsonStr.replace(/\t/g,"\\t");
+			jsonStr=jsonStr.replace(/\n/g,"\\n");
+			jsonStr=jsonStr.replace(/\r/g,"\\r");
+		}
+		return jsonStr;
+	}
+	function trans2Chn(str){
+		if(str=="centery"){return "中心点Y";}
+		if(str=="expression"){return "情绪";}
+		if(str=="race"){return "种族";}
+		if(str=="gender"){return "性别";}
+		if(str=="centerx"){return "中心点X";}
+		if(str=="roll"){return " ";}
+		if(str=="yaw"){return " ";}
+		if(str=="score"){return "分数";}
+		if(str=="occlusion"){return "闭合";}
+		if(str=="bluriness"){return "模糊";}
+		if(str=="lefteyeclose"){return "左眼闭合";}
+		if(str=="width"){return "宽度";}
+		if(str=="angle"){return "角度";}
+		if(str=="mouthclose"){return "嘴部闭合";}
+		if(str=="righteyeclose"){return "右眼闭合";}
+		if(str=="pitch"){return "最高点";}
+		if(str=="illum"){return "照明";}
+		if(str=="age"){return "年龄";}
+		if(str=="height"){return "高度";}
+		if(str=="isbiopsy"){return "是否为活体";}
+	}
+</script>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.test.dao.ClientDao">
+
+    <select id="findList" resultType="Client">
+       select *
+		from client
+    </select>
+    <select id="findByName" resultType="Client" parameterType="java.lang.String">
+       select id, name, gender, birthday, height, weight
+		from client
+		where name = #{name,jdbcType=VARCHAR}
+    </select>
+    <select id="findClientById" resultType="Client" parameterType="java.lang.String">
+        select *
+        from client
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="findFaceById" resultType="FaceInfo" parameterType="java.lang.String">
+        select *
+        from faceinfo
+        where clientID = #{id,jdbcType=VARCHAR}
+    </select>
+    <!--<select id="findFaceByGroupId" resultType="com.jeesite.modules.test.entity.Face">
+        select
+        a.id AS "id",a.centerX AS "centerX",a.centerY AS "centerY",a.width AS "width",
+        a.height AS "height",a.angle AS "angle", a.score AS "score",a.yaw AS "yaw",
+        a.roll AS "roll",a.pitch AS "pitch",a.bluriness AS "bluriness",a.illum AS "illum",
+        a.age AS "age",
+        a.mouthclose AS "mouthclose",
+        a.leftEyeclose AS "leftEyeclose",
+        a.rightEyeclose AS "rightEyeclose",
+        a.occlusion AS "occlusion",
+        a.race AS "race",
+        a.galsses AS "galsses",
+        a.gender AS "gender",
+        n.id AS "clientId",
+        a.isalter AS "isAlter",
+        b.feature AS "feature",
+        c.filepath AS "filepath",
+        from faceinfo a
+        JOIN client n ON a.clientID = n.id
+        and JOIN feature b ON a.id = b.FaceInfoid
+        and JOIN facepicture c ON a.id = c.faecinfoID
+        where n.groupid = #{groupId,jdbcType=VARCHAR}
+    </select>
+    <select id="findFaceByClientId" resultType="com.jeesite.modules.test.entity.Face">
+        select
+        a.id AS "id",a.centerX AS "centerX",a.centerY AS "centerY",a.width AS "width",
+        a.height AS "height",a.angle AS "angle", a.score AS "score",a.yaw AS "yaw",
+        a.roll AS "roll",a.pitch AS "pitch",a.bluriness AS "bluriness",a.illum AS "illum",
+        a.age AS "age",a.mouthclose AS "mouthclose",a.leftEyeclose AS "leftEyeclose",
+        a.rightEyeclose AS "rightEyeclose", a.occlusion AS "occlusion",a.race AS "race",
+        a.galsses AS "galsses",a.gender AS "gender",n.id AS "clientId",a.isalter AS "isAlter",
+        b.feature AS "feature",c.filepath AS "filepath",
+        from faceinfo a
+        and JOIN feature b ON a.id = b.FaceInfoid
+        and JOIN facepicture c ON a.id = c.faecinfoID
+        where a.clientID = #{clientId,jdbcType=VARCHAR}
+    </select>-->
+
+</mapper>

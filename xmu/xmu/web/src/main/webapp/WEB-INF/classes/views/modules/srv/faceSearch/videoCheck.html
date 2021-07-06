@@ -1,0 +1,54 @@
+<% layout('/layouts/default.html', {title: '人脸搜索及验证', libs: ['validate','fileupload','dataGrid']}){ %>
+<body style="background-color: #cecece">
+<div style=" background-color:#9e9e9e;margin:-20px;">
+    <p style="color:#000000;font-size: 36px;padding-left:200px;padding-top: 80px;padding-bottom: 30px">视频流人脸检测</p>
+    <p style="color:#000000;font-size: 24px;width: 900px;padding-bottom: 50px;padding-left:200px">
+        根据外部的视频监控系统中的实时人脸视频流，提取视频流并支持处理静态图片，输出人脸图片并进行图片质量控制，添加到相应的人脸库中。
+    </p>
+</div>
+<div  >
+    <br>
+    <h3>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-upload"></i><b> 信息上传</b></h3>
+</div>
+<!--信息表单-->
+<div class="no-border" style="padding-top:50px;padding-bottom: 100px">
+    <#form:form id="videoUploadForm" model="${fsData}" action="video_check" method="post" class="form-horizontal" onsubmit = "return CheckInfo()">
+    <div class="row-fluid">
+        <div class="span4 offset2">
+            <div class="form-group">
+                <label class="control-label col-sm-2"><b>${text('视频上传')}：</b></label>
+                <div class="col-sm-6">
+                    <#form:fileupload id="uploadVideo" bizKey="${fsData.id}" bizType="FaceSearch_video"
+                    uploadType="media" class="" readonly="false" preview="weboffice" maxUploadNum="1"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="row-fluid">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-sm btn-primary" id="btnSubmit" style="font-size:20px;width: 100px;height: 40px">
+                <i class="fa fa-check"></i> ${text('提交')}
+            </button>&nbsp;
+        </div>
+    </div>
+</#form:form>
+</div>
+
+</body>
+<footer class="main-footer m0" style="background-color:#000000;height: 200px;color:#FFFFFF;margin-top:-10px;">
+    <div class="pull-right hidden-xs">当前版本： ${@Global.getConfig('productVersion')}</div>
+    &copy; ${@DateUtils.getYear()} ${@Global.getConfig('productName')} - Powered By <a href="http://jeesite.com">JeeSite</a>
+</footer>
+<% } %>
+
+<script>
+    function CheckInfo(){
+        const img = $("#uploadVideo").val();
+        if(!img){
+            alert("视频不能为空");
+            return false;
+        }
+        return true;
+    }
+</script>

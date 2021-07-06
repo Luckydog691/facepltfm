@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.test.dao.facedatabase.Public_Security_VerificationDao">
+
+    <select id="findByIdAndName" parameterType="java.lang.String" resultType="Public_Security_Verification" >
+		SELECT id,userId,userName,filepath,filename
+		FROM public_security_verification
+		where userId = #{userId,jdbcType=VARCHAR}
+		and userName = #{userName,jdbcType=VARCHAR}
+	</select>
+
+	<select id="findById" parameterType="java.lang.String" resultType="Public_Security_Verification" >
+		SELECT id,userId,userName,filepath,filename
+		FROM public_security_verification
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+
+</mapper>

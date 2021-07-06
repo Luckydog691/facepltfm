@@ -1,0 +1,74 @@
+Manifest-Version: 1.0
+Class-Path: jackson-dataformat-xml-2.10.0.pr1.jar httpcore-4.4.10.jar 
+ log4j-over-slf4j-1.7.25.jar swagger-annotations-1.5.20.jar thumbnaila
+ tor-0.4.8.jar netty-resolver-4.1.31.Final.jar springfox-spring-web-2.
+ 9.2.jar commons-text-1.3.jar spring-boot-starter-cache-2.0.8.RELEASE.
+ jar shiro-config-ogdl-1.4.2.jar spring-beans-5.0.12.RELEASE.jar sprin
+ g-webmvc-5.0.12.RELEASE.jar classmate-1.3.4.jar jackson-annotations-2
+ .10.0.pr1.jar spring-boot-starter-2.0.8.RELEASE.jar curvesapi-1.04.ja
+ r javax.mail-1.6.2.jar springfox-swagger-common-2.9.2.jar reactor-cor
+ e-3.1.14.RELEASE.jar spring-core-5.0.12.RELEASE.jar postgresql-42.2.5
+ .jar fastjson-1.2.61.jar shiro-crypto-cipher-1.4.2.jar jeesite-module
+ -core-4.1.7-20191007.154849-1.jar shiro-event-1.4.2.jar jeesite-modul
+ e-weboffice-4.1.7-20191007.101937-1.jar spring-boot-starter-data-redi
+ s-2.0.8.RELEASE.jar jcommander-1.72.jar commons-fileupload-1.3.3.jar 
+ netty-handler-4.1.31.Final.jar mysql-connector-java-5.1.47.jar netty-
+ common-4.1.31.Final.jar netty-transport-4.1.31.Final.jar springfox-sw
+ agger2-2.9.2.jar transactions-jdbc-4.0.6.jar commons-email-1.5.jar ja
+ xen-1.1.6.jar xmlbeans-2.6.0.jar javase-3.3.2.jar tomcat-embed-websoc
+ ket-8.5.37.jar transactions-4.0.6.jar jul-to-slf4j-1.7.25.jar snakeya
+ ml-1.19.jar jboss-logging-3.3.2.Final.jar dom4j-1.6.1.jar httpclient-
+ 4.5.6.jar hibernate-validator-6.0.14.Final.jar druid-1.1.18.jar asm-5
+ .2.jar spring-boot-autoconfigure-2.0.8.RELEASE.jar spring-boot-starte
+ r-logging-2.0.8.RELEASE.jar shiro-config-core-1.4.2.jar spring-boot-s
+ tarter-json-2.0.8.RELEASE.jar commons-beanutils-1.9.3.jar spring-boot
+ -starter-jta-atomikos-2.0.8.RELEASE.jar spring-jdbc-5.0.12.RELEASE.ja
+ r commons-collections-3.2.2.jar ant-1.9.7.jar spring-boot-starter-web
+ -2.0.8.RELEASE.jar shiro-crypto-hash-1.4.2.jar jakarta.xml.bind-api-2
+ .3.2.jar poi-scratchpad-3.16.jar spring-data-commons-2.0.13.RELEASE.j
+ ar shiro-web-1.4.2.jar guava-20.0.jar shiro-core-1.4.2.jar jackson-mo
+ dule-parameter-names-2.10.0.pr1.jar caffeine-2.6.2.jar transactions-j
+ ta-4.0.6.jar shiro-cas-1.4.2.jar lombok-1.16.22.jar mybatis-3.4.6.jar
+  logback-core-1.2.3.jar antlr4-runtime-4.7.2.jar reactive-streams-1.0
+ .2.jar jackson-module-jaxb-annotations-2.10.0.pr1.jar slf4j-api-1.7.2
+ 5.jar spring-boot-test-2.0.8.RELEASE.jar spring-oxm-5.0.12.RELEASE.ja
+ r json-20180130.jar mapstruct-1.2.0.Final.jar jline-2.14.2.jar activa
+ tion-1.1.1.jar imageio-core-3.4.1.jar jakarta.activation-api-1.2.1.ja
+ r jmimemagic-0.1.5.jar beetl-3.0-20191006.021250-2.jar j2cache-core-2
+ .7.0-release.jar spring-data-redis-2.0.13.RELEASE.jar common-io-3.4.1
+ .jar javax.transaction-api-1.2.jar jtds-1.3.1.jar jackson-datatype-jd
+ k8-2.10.0.pr1.jar validation-api-2.0.1.Final.jar stax-api-1.0.1.jar i
+ mageio-jpeg-3.4.1.jar quartz-2.3.0.jar jeesite-module-swagger-4.1.7-2
+ 0191007.101926-1.jar junit-4.12.jar commons-codec-1.11.jar springfox-
+ schema-2.9.2.jar aspectjweaver-1.8.13.jar commons-io-2.6.jar shiro-la
+ ng-1.4.2.jar commons-lang3-3.7.jar spring-tx-5.0.12.RELEASE.jar logba
+ ck-classic-1.2.3.jar poi-ooxml-3.16.jar transactions-jms-4.0.6.jar sp
+ ringfox-core-2.9.2.jar jeesite-module-filemanager-4.1.7-20191216.1238
+ 58-2.jar mybatis-spring-1.3.2.jar poi-3.16.jar jsqlparser-1.1.jar net
+ ty-buffer-4.1.31.Final.jar shiro-cache-1.4.2.jar spring-jcl-5.0.12.RE
+ LEASE.jar jeesite-framework-4.1.7-20200311.073913-12.jar lettuce-core
+ -5.0.5.RELEASE.jar atomikos-util-4.0.6.jar jsoup-1.11.3.jar jeesite-c
+ ommon-4.1.7-20191007.154420-1.jar woodstox-core-6.0.0.pr2.jar spring-
+ test-5.0.12.RELEASE.jar asm-commons-5.2.jar aspectjrt-1.8.13.jar spri
+ ng-aop-5.0.12.RELEASE.jar cas-client-core-3.2.2.jar spring-context-su
+ pport-5.0.12.RELEASE.jar jackson-datatype-jsr310-2.10.0.pr1.jar sprin
+ g-context-5.0.12.RELEASE.jar commons-collections4-4.1.jar imageio-met
+ adata-3.4.1.jar javassist-3.21.0-GA.jar ojdbc6-11.2.0.3.jar fst-2.57.
+ jar jackson-core-2.10.0.pr1.jar springfox-swagger-ui-2.9.2.jar stax2-
+ api-4.2.jar javax.annotation-api-1.3.2.jar transactions-api-4.0.6.jar
+  mchange-commons-java-0.2.11.jar spring-data-keyvalue-2.0.13.RELEASE.
+ jar common-lang-3.4.1.jar core-3.3.2.jar xml-apis-1.4.01.jar jackson-
+ databind-2.10.0.pr1.jar asm-tree-5.2.jar springfox-spi-2.9.2.jar byte
+ -buddy-1.7.11.jar spring-plugin-metadata-1.2.0.RELEASE.jar jai-imagei
+ o-core-1.3.1.jar common-image-3.4.1.jar spring-plugin-core-1.2.0.RELE
+ ASE.jar jcl-over-slf4j-1.7.25.jar spring-boot-starter-tomcat-2.0.8.RE
+ LEASE.jar shiro-crypto-core-1.4.2.jar tomcat-embed-core-8.5.37.jar sp
+ ring-web-5.0.12.RELEASE.jar swagger-models-1.5.20.jar hamcrest-core-1
+ .3.jar poi-ooxml-schemas-3.16.jar objenesis-2.5.1.jar commons-logging
+ -1.2.jar log4j-to-slf4j-2.10.0.jar spring-expression-5.0.12.RELEASE.j
+ ar shiro-spring-1.4.2.jar netty-codec-4.1.31.Final.jar tomcat-embed-e
+ l-8.5.37.jar ant-launcher-1.9.7.jar commons-pool2-2.5.0.jar spring-bo
+ ot-2.0.8.RELEASE.jar UserAgentUtils-1.21.jar blade-patchca-1.1.0.jar 
+ pinyin4j-2.5.1.jar log4j-api-2.10.0.jar
+Main-Class: com.jeesite.modules.Application
+

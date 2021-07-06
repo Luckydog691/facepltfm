@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/decolines.css" />
+	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<link rel="stylesheet" type="text/css" href="css/lettereffect.css" />
+	<link rel="stylesheet" type="text/css" href="css/pater.css" />
+	<script>document.documentElement.className = 'js';</script>
+</head>
+<body>
+
+	<section class="content content--c1" id="section1">
+		<a href="#section1" class="section-link">#1</a>
+		<div class="slideshow slideshow--1" data-effect="fx1">
+			<div class="slide slide--current"><h2 class="title title--style-1">Forever</h2></div>
+			<div class="slide"><h2 class="title title--style-1">Glorious</h2></div>
+			<div class="slide"><h2 class="title title--style-1">Timeless</h2></div>
+			<div class="slide"><h2 class="title title--style-1">Love</h2></div>
+		</div>
+		<nav class="actions">
+			<button class="btn btn--trigger btn--prev">Previous</button>
+			<button class="btn btn--trigger btn--next">Next</button>
+		</nav>
+	</section><!-- /content -->
+
+<script src="js/charming.min.js"></script>
+<script src="js/anime.min.js"></script>
+<script src="js/lineMaker.js"></script>
+<script src="js/imagesloaded.pkgd.min.js"></script>
+<script src="js/textfx.js"></script>
+<script>
+
+	// Slide obj: each Slideshow´s slide will contain the HTML element and the instance of TextFx.
+	var Slide = function(el) {
+				this.el = el;
+				this.txt = new TextFx(this.el.querySelector('.title'));
+			},
+			// The Slideshow obj.
+			Slideshow = function(el) {
+				this.el = el;
+				this.current = 0;
+				this.slides = [];
+				var self = this;
+				[].slice.call(this.el.querySelectorAll('.slide')).forEach(function(slide) {
+					self.slides.push(new Slide(slide));
+				});
+				this.slidesTotal = this.slides.length;
+				this.effect = this.el.getAttribute('data-effect');
+			};
+
+	Slideshow.prototype._navigate = function(direction) {
+		if( this.isAnimating ) {
+			return false;
+		}
+		this.isAnimating = true;
+
+		var self = this, currentSlide = this.slides[this.current];
+
+		this.current = direction === 'next' ? (this.current < this.slidesTotal - 1 ? this.current + 1 : 0) : (this.current = this.current > 0 ? this.current - 1 : this.slidesTotal - 1);
+		var nextSlide = this.slides[this.current];
+
+		var checkEndCnt = 0, checkEnd = function() {
+			++checkEndCnt;
+			if( checkEndCnt === 2 ) {
+				currentSlide.el.classList.remove('slide--current');
+				nextSlide.el.classList.add('slide--current');
+				self.isAnimating = false;
+			}
+		};
+
+		// Call the TextFx hide method and pass the effect string defined in the data-effect attribute of the Slideshow element.
+		currentSlide.txt.hide(this.effect, function() {
+			currentSlide.el.style.opacity = 0;
+			checkEnd();
+		});
+		// First hide the next slide´s TextFx text.
+		nextSlide.txt.hide();
+		nextSlide.el.style.opacity = 1;
+		// And now call the TextFx show method.
+		nextSlide.txt.show(this.effect, function() {
+			checkEnd();
+		});
+	};
+
+	Slideshow.prototype.next = function() { this._navigate('next'); };
+
+	Slideshow.prototype.prev = function() { this._navigate('prev');	};
+
+
+	[].slice.call(document.querySelectorAll('.content')).forEach(function(el, pos) {
+		var slideshow = new Slideshow(el.querySelector('.slideshow'));
+		el.querySelector('.actions').firstElementChild.addEventListener('click', function() { slideshow.prev(); });
+		el.querySelector('.actions').lastElementChild.addEventListener('click', function() { slideshow.next(); });
+	});
+</script>
+</body>
+</html>

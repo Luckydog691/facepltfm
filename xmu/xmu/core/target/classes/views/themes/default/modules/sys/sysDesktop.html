@@ -1,0 +1,76 @@
+<% layout('/layouts/default.html', {title: '', bodyClass: ''}){ %>
+<!-- <link rel="stylesheet" href="${ctxStatic}/modules/sys/sysDesktop.css?${_version}"> -->
+<body style="background-color: #f6f6f6;" >
+<div class="container" style="background-color: #2babe4; width:100%;height: 150px">
+	<br><br>
+	<p style="font-size: 72px;text-align: center"><b>Face Detection</b></p>
+</div>
+<div style="text-align: center">
+	<p style="float: left;text-align: right;margin-top:150px;margin-left: 100px;">
+		<b style="font-size: 24px;color:#333333">
+			智能化的人脸识别大数据平台<br><br>
+			高效率和高精确率识别人脸<br><br>
+			采用人工智能深度学习和数据挖掘算法<br><br>
+		</b>
+	</p>
+	<img src="${ctxStatic}/images/index.jpg" style="vertical-align:middle">
+	<p style="float: right;text-align: left;margin-top:150px;margin-right: 100px;">
+		<b style="font-size: 24px;color:#333333">
+			平台基于分布式的大数据架构<br><br>
+			采用大数据环境的数据检测<br><br>
+			人脸多维数据融合适应多业务场景<br><br>
+		</b>
+	</p>
+</div>
+<div class="container" style="background-color: #aaaaaa; width:100%;ght: 400px;padding: 0px">
+	<img src="${ctxStatic}/images/d2.jpg" style="float: left;max-height: 400px; padding-right: 100px;">
+	<br><br><br>
+	<b style="font-size: 72px;color: #ffffff">快速了解平台</b>
+	<br><br><br>
+	<p style="font-size: 36px;color: #ffffff">大量文档或许能解决你的问题</p>
+	<a href="${ctx}/doc/list" style="font-size: 24px;color:#eeeeff">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<u>前往查阅>></u>
+	</a>
+</div>
+<div class="container" style="background-color: #f6f6f6; width:100%;height: 400px;padding-right: 0px;padding-left: 400px">
+	<img src="${ctxStatic}/images/d1.jpg" style="float: right;max-height: 400px;">
+	<br><br><br>
+	<b style="font-size: 72px;color: #222222;">人脸库管理</b>
+	<br><br><br>
+	<p style="font-size: 36px;color: #222222;">查询管理已建立的人脸数据</p>
+	<a href="${ctx}/srv/faceInfo/list" style="font-size: 24px;">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<u>查看详情>></u>
+	</a>
+</div>
+
+<div class="container" style="background-color: #aaaaaa; width:100%;height: 400px;padding: 0px">
+	<img src="${ctxStatic}/images/d3.jpg" style="float: left;max-height: 400px; padding-right: 150px;">
+	<br><br><br>
+	<b style="font-size: 72px;color: #ffffff">单人搜索验证</b>
+	<br><br><br>
+	<p style="font-size: 36px;color: #ffffff">人脸库中搜索匹配指定人像</p>
+	<a href="${ctx}/srv/faceSearch/single" style="font-size: 24px;color:#eeeeff">
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<u>前往搜索>></u>
+	</a>
+</div>
+</body>
+<footer class="main-footer m0" style="background-color:#000000;height: 100px;color:#FFFFFF;margin-top:-10px;">
+	<div class="pull-right hidden-xs">当前版本： ${@Global.getConfig('productVersion')}</div>
+	&copy; ${@DateUtils.getYear()} ${@Global.getConfig('productName')} - Powered By <a href="http://jeesite.com">JeeSite</a>
+</footer>
+<% } %>
+<script src="${ctxStatic}/jquery/jquery-ui-sortable-1.12.1.min.js"></script>
+<script>
+	$(window).resize(function(){
+		var footerHeight = $('.main-footer').outerHeight() || 0;
+		var windowHeight = $(window).height();
+		$('.content').css('min-height', windowHeight - footerHeight)
+	}).resize();
+	$('.ui-sortable').sortable({
+		connectWith : '.ui-sortable',
+		handle      : '.box-header, .nav-tabs',
+		placeholder : 'sort-highlight',
+		forcePlaceholderSize: true,
+		zIndex : 999999
+	}).find('.box-header, .nav-tabs').css('cursor', 'move');
+</script>

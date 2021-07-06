@@ -1,0 +1,50 @@
+# 产品或项目名称、软件开发公司名称
+productName: 人脸识别管理系统
+companyName: xmu
+
+# 产品版本、版权年份
+productVersion: V4.1
+copyrightYear: 2019
+
+#是否演示模式
+demoMode: false
+
+server:
+  port: 8080
+  servlet:
+    context-path: /web
+  tomcat:
+    uri-encoding: UTF-8
+# 数据库连接
+# 开发时候改成连接本地数据库
+jdbc:
+  type: mysql
+  driver: com.mysql.jdbc.Driver
+  #测试库 139.9.104.150
+  #url: jdbc:mysql://localhost:3306/face_detection?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+  url: jdbc:mysql://localhost:3306/face_detection?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&allowPublicKeyRetrieval=true&serverTimezone=GMT%2B8
+  #  url: jdbc:mysql://rm-bp1b5848pj9gwjr3ito.mysql.rds.aliyuncs.com:3306/face_detection?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+  #url: jdbc:mysql://139.9.104.1s50:3306/nirvana?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+  username: root
+  #password: FaceDetection!!!
+  password: 2b6709791b252ad85c73912dfc32b2b8
+  testSql: SELECT 1
+
+spring:
+  # 应用程序名称
+  application:
+    name: web
+  # 当前环境名称（注意：不可设置为 test 它是单元测试专用的名称）
+  profiles:
+    active: default
+  # 打印横幅
+  main:
+    bannerMode: "off"
+# 日志配置
+logging:
+  config: classpath:config/logback-spring.xml
+
+# 图片上传本地路径
+file:
+  enabled: true
+  baseDir: C:/jeesite

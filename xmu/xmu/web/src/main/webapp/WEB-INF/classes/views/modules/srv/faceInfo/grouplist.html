@@ -1,0 +1,46 @@
+<% layout('/layouts/default.html', {title: 'faceInfo管理', libs: ['dataGrid']}){ %>
+<div class="main-content">
+    <div class="box box-main" style="background-color: #cecece">
+        <div class="box-header">
+            <div class="box-title">
+                <i class="fa icon-notebook"></i> ${text('人脸库用户组管理')}
+            </div>
+            <div class="box-tools pull-right">
+                <a href="${ctx}/srv/faceInfo/clientform" class="btn btn-default btnTool" title="${text('新增clientgroup')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
+            </div>
+        </div>
+        <div class="box-body">
+            <#form:form id="searchForm" model="${clientGroup}" action="${ctx}/srv/client/listData" method="post" class="form-inline hide"
+            data-page-no="${parameter.pageNo}" data-page-size="${parameter.pageSize}" data-order-by="${parameter.orderBy}">
+        </#form:form>
+        <table id="dataGrid"></table>
+        <div id="dataGridPage"></div>
+    </div>
+</div>
+</div>
+<% } %>
+<script>
+    // 初始化DataGrid对象
+    $('#dataGrid').dataGrid({
+        searchForm: $("#searchForm"),
+        columnModel: [
+            {header:'${text("用户组ID")}', name:'id', index:'a.id', width:150, align:"center", frozen:true, formatter: function(val, obj, row, act){
+                    return '<a href="${ctx}/srv/client/form?id='+row.id+'" class="btnList" data-title="${text("编辑clientgroup")}">'+(val||row.id)+'</a>';
+                }},
+            {header:'${text("用户组名")}', name:'name', index:'a.name', width:150, align:"center"},
+            {header:'${text("用户人数")}', name:'count', index:'a.count', width:150, align:"center"},
+
+
+            {header:'${text("操作")}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
+                    var actions = [];
+                        actions.push('<a href="${ctx}/srv/client/form?id='+row.id+'" class="btnList" title="${text("编辑clientgroup")}"><i class="fa fa-pencil"></i></a>&nbsp;');
+                        actions.push('<a href="${ctx}/srv/faceInfo/delete?id='+row.id+'" class="btnList" title="${text("删除clientgroup")}" data-confirm="${text("确认要删除该faceInfo吗？")}"><i class="fa fa-trash-o"></i></a>&nbsp;');
+                    return actions.join('');
+                }}
+        ],
+        // 加载成功后执行事件
+        ajaxSuccess: function(data){
+
+        }
+    });
+</script>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<% layout('/layouts/default.html', {title: 'testAJAX'}){ %>
+<script src="${ctxStatic}/common/jeesite.js?${_version}"></script>
+<script type="text/javascript">
+    function f()
+    {
+        $.ajax({
+            url: "${ctx}/appApi/getInt",
+            dataType: "text",
+            type: "get",
+            success: function(result) {
+                alert(result);
+            },
+            error: function(data) {
+                alert("请求出错");
+                alert(data);
+            }
+        });
+    };
+    function g()
+    {
+        var string="inputString"
+        $.ajax({
+            url: "${ctx}/appApi/getstring",
+            dataType: "text",
+            type: "get",
+            data: "string="+string,
+            success: function(result) {
+                alert(result);
+            },
+            error: function(data) {
+                alert("请求出错");
+            }
+        });
+    };
+</script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button type="button" onclick="f()">Test int</button>
+<button type="button" onclick="g()">Test string</button>
+</body>
+
+</html>
+<% } %>

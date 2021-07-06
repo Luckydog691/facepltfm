@@ -1,0 +1,105 @@
+<% layout('/layouts/default.html', {title: 'client管理', libs: ['validate','fileupload','dataGrid']}){ %>
+<div class="main-content">
+    <div class="box box-main">
+        <div class="box-header with-border">
+            <div class="box-title">
+                <i class="fa icon-note"></i> ${text(client.isNewRecord ? '新增client' : '编辑client')}
+            </div>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <#form:form id="inputForm" model="${client}" action="${ctx}/srv/client/save" method="post" class="form-horizontal" >
+        <div class="box-body">
+            <div class="form-unit">${text('基本信息')}</div>
+            <#form:hidden path="id"/>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">${text('用户名')}：</label>
+                        <div class="col-sm-10">
+                            <#form:input path="name" maxlength="200" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">${text('性别')}：</label>
+                        <div class="col-sm-10">
+                            <#form:input path="gender" maxlength="200" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">${text('出生日期')}：</label>
+                        <div class="col-sm-10">
+                            <#form:input path="birthday" maxlength="200" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">${text('身高')}：</label>
+                        <div class="col-sm-10">
+                            <#form:input path="height" maxlength="200" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">${text('体重')}：</label>
+                        <div class="col-sm-10">
+                            <#form:input path="weight" maxlength="200" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-footer">
+            <div class="row">
+                <div class="col-sm-offset-2 col-sm-10">
+
+                    <button type="submit" class="btn btn-sm btn-primary" id="btnSubmit" onclick = "return CheckInfo()"><i class="fa fa-check"></i> ${text('保 存')}</button>&nbsp;
+                    <button type="button" class="btn btn-sm btn-default" id="btnCancel" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> ${text('关 闭')}</button>
+                </div>
+            </div>
+        </div>
+    </#form:form>
+</div>
+</div>
+<% } %>
+<script>
+    $("#inputForm").validate({
+        submitHandler: function(form){
+            js.ajaxSubmitForm($(form), function(data){
+                js.showMessage(data.message);
+                if(data.result == Global.TRUE){
+                    js.closeCurrentTabPage(function(contentWindow){
+                        contentWindow.page();
+                    });
+                }
+            }, "json");
+        }
+    });
+
+</script>
+
+<script>
+    function CheckInfo(){
+        const context = $("#name").val();
+        if(!context){
+            alert("新增数据不能为空");
+            return false;
+        }
+        return true;
+    }
+</script>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.test.dao.facedatabase.FaceInfoDao">
+
+    <select id="findList" resultType="FaceInfo" >
+		SELECT *
+		FROM faceinfo
+	</select>
+	<delete id="delete" parameterType="java.lang.String" >
+		delete from faceinfo
+    	where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<!--<update id="updateFace" parameterType="FaceInfo" >
+		update faceinfo set centerX=#{centerx},centerY=#{centery},
+		width=#{width},height=#{height},angle=#{angle},
+		score=#{score},yaw=#{yaw},roll=#{roll},
+		pitch=#{pitch},bluriness=#{bluriness},illum=#{illum},
+		age=#{age},mouthclose=#{mouthclose},leftEyeclose=#{lefteyeclose},
+		rightEyeclose=#{righteyeclose},occlusion=#{occlusion},race=#{race},
+		glasses=#{glasses},gender=#{gender},clientID=#{clientid},
+		isalter=#{isalter}
+    	where id = #{id,jdbcType=VARCHAR}
+	</update>-->
+	<select id="findById" resultType="FaceInfo" parameterType="java.lang.String" >
+		select id, centerX, centerY, width, height, angle, score, yaw,
+		roll, pitch, bluriness, illum, age, mouthclose, leftEyeclose, rightEyeclose,
+		occlusion, race, glasses, gender, clientID, isalter
+		from faceinfo
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findByClientName" resultType="FaceInfo" parameterType="java.lang.String" >
+		select id, centerX, centerY, width, height, angle, score, yaw,
+		roll, pitch, bluriness, illum, age, mouthclose, leftEyeclose, rightEyeclose,
+		occlusion, race, glasses, gender, clientID, isalter
+		from faceinfo
+		where clientID = #{name,jdbcType=VARCHAR}
+	</select>
+</mapper>

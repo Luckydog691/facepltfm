@@ -1,0 +1,52 @@
+<% layout('/layouts/default.html', {title: '结果列表', libs: ['dataGrid']}){ %>
+<div class="main-content">
+	<div class="box box-main" style="background-color: #cecece">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa icon-notebook"></i> ${text('结果列表')}
+			</div>
+			<div class="box-tools pull-right">
+<!--				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>-->
+				<% if(true || hasPermi('calresult:edit')){ %>
+					<a href="${ctx}/srv/calresult/form" class="btn btn-default btnTool" title="${text('新增calresult')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
+				<% } %>
+			</div>
+		</div>
+		<div class="box-body">
+			<#form:form id="searchForm" model="${calresult}" action="${ctx}/srv/calresult/listData" method="post" class="form-inline hide"
+					data-page-no="${parameter.pageNo}" data-page-size="${parameter.pageSize}" data-order-by="${parameter.orderBy}">
+			</#form:form>
+			<table id="dataGrid"></table>
+			<div id="dataGridPage" style="background-color: #cecece"></div>
+		</div>
+	</div>
+</div>
+<% } %>
+<script>
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+		// {header:'${text("id")}', name:'id', index:'a.id', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
+		// 		return '<a href="${ctx}/calresult/form?id='+row.id+'" class="btnList" data-title="${text("编辑calresult")}">'+(val||row.id)+'</a>';
+		// }},
+		{header:'${text("起始时间")}', name:'startTime', index:'a.startTime', width:150, align:"center"},
+		{header:'${text("结束时间")}', name:'finishTime', index:'a.finishTime', width:150, align:"center"},
+		{header:'${text("操作类型")}', name:'operateType', index:'a.operateType', width:150, align:"left"},
+		{header:'${text("操作用户")}', name:'operateUserID', index:'a.operateUserID', width:150, align:"left"},
+		{header:'${text("操作结果")}', name:'result', index:'a.result', width:150, align:"left"},
+		// {header:'${text("context")}', name:'context', index:'a.context', width:150, align:"left"}
+		{header:'${text("操作")}', name:'actions', width:120, align:"center",sortable:false, title:false, formatter: function(val, obj, row, act){
+			var actions = [];
+			<% if(true || hasPermi('srv:faceInfo:edit')){ %>
+				actions.push('<a href="${ctx}/srv/calresult/form?id='+row.id+'" class="btnList" title="${text("查看")}"><i class="fa fa-eye"></i></a>&nbsp;');
+			<% } %>
+			return actions.join('');
+		}}
+	],
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+
+	}
+});
+</script>

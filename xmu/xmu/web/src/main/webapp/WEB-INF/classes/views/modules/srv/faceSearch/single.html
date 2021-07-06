@@ -1,0 +1,73 @@
+<% layout('/layouts/default.html', {title: '人脸搜索及验证', libs: ['validate','fileupload','dataGrid']}){ %>
+<body style="background-color: #cecece">
+<div style=" background-color:#9e9e9e;margin:-20px;">
+	<p style="color:#000000;font-size: 36px;padding-left:200px;padding-top: 80px;padding-bottom: 30px">单人搜索检测</p>
+	<p style="color:#000000;font-size: 24px;width: 900px;padding-bottom: 50px;padding-left:200px">
+			人脸搜索功能支持亿级抓拍库、注册库人脸检索，搜索对象主要包括陌生人、重点人员、嫌疑人、在逃人员等等。<br>
+			搜索方法基于深度学习的人脸识别方案（采用循环神经网络RNN和卷积神经网络CNN，定义卷积层和池化层），
+			训练集提高系统自我学习能力（通过常用人脸识别数据集验证方案有效性），以准确识别图片中的人脸信息，提供人脸属性识别、关键点定位、人脸1：1比对能力，
+			同时，针对一张人脸照片，在指定人脸集合中搜索，找出最相似的一张脸，并给出相似度分值。如果对比两张人脸的相似度，并给出相似度评分，从而判断是否同一个人。
+	</p>
+</div>
+<div  >
+	<br>
+	<h3>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-upload"></i><b> 信息上传</b></h3>
+</div>
+<!--信息表单-->
+<div class="no-border" style="padding-top:50px;padding-bottom: 100px">
+	<#form:form id="singleUploadForm" model="${fsData}" action="commit_single" method="post" class="form-horizontal" onsubmit = "return CheckInfo()">
+	<div class="row-fluid">
+		<div class="span4 offset2">
+			<div class="form-group">
+				<label class="control-label col-sm-2"><b>${text('图片上传')}：</b></label>
+				<div class="col-sm-6">
+					<#form:fileupload id="uploadImage" bizKey="${fsData.id}" bizType="FaceSearch_image"
+					uploadType="image" class="" readonly="false" preview="weboffice" maxUploadNum="1"/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br><div class="row-fluid">
+	<div class="span4 offset2">
+		<div class="form-group">
+			<label class="control-label col-sm-2" title="">
+				<span class="required hide">*</span> ${text('人脸库')}：<i class="fa icon-question hide"></i></label>
+			<div class="col-sm-4">
+				<#form:select id="select" path="testSelect" blankOption="true" blankOptionLabel="请选择" items="${faceGroupList}" itemLabel="remarks"
+				itemValue="groupId"  class="form-control required" />
+			</div>
+		</div>
+	</div>
+</div><br>
+	<div class="row-fluid">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-sm btn-primary" id="btnSubmit" style="font-size:20px;width: 100px;height: 40px">
+				<i class="fa fa-check"></i> ${text('提交')}
+			</button>&nbsp;
+		</div>
+	</div>
+</#form:form>
+</div>
+
+</body>
+<footer class="main-footer m0" style="background-color:#000000;height: 200px;color:#FFFFFF;margin-top:-10px;">
+	<div class="pull-right hidden-xs">当前版本： ${@Global.getConfig('productVersion')}</div>
+	&copy; ${@DateUtils.getYear()} ${@Global.getConfig('productName')} - Powered By <a href="http://jeesite.com">JeeSite</a>
+</footer>
+<% } %>
+
+<script>
+	function CheckInfo(){
+		const img = $("#uploadImage").val();
+		const select = $("#select").val();
+		if(!img){
+			alert("图片不能为空");
+			return false;
+		}
+		else if(!select){
+			alert("请选择人脸库");
+			return false;
+		}
+		return true;
+	}
+</script>

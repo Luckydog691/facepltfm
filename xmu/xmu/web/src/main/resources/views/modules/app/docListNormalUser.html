@@ -1,0 +1,33 @@
+<% layout('/layouts/default.html', {title: '平台文档', libs: ['dataGrid']}){ %>
+<div class="main-content">
+    <div class="box box-main" style="background-color: #cecece">
+        <div class="box-header">
+            <div class="box-title">
+                <i class="fa icon-notebook"></i> ${text('文档列表')}
+            </div>
+        </div>
+        <div class="box-body">
+            <#form:form id="searchForm" model="${doc}" action="${ctx}/doc/listData" method="post" class="form-inline hide"
+            data-page-no="${parameter.pageNo}" data-page-size="${parameter.pageSize}" data-order-by="${parameter.orderBy}">
+        </#form:form>
+        <table id="dataGrid"></table>
+        <div id="dataGridPage" style="background-color: #cecece"></div>
+    </div>
+</div>
+</div>
+<% } %>
+<script>
+    // 初始化DataGrid对象
+    $('#dataGrid').dataGrid({
+        searchForm: $("#searchForm"),
+        columnModel: [
+            {header:'${text("标题")}', name:'title', index:'a.title', width:150, align:"center", formatter: function(val, obj, row, act){
+                    return '<a href="${ctx}/doc/formNormalUser?id='+row.id+'" class="btnList" data-title="${text("查看文档")}">'+ val +'</a>';
+                }}
+        ],
+        // 加载成功后执行事件
+        ajaxSuccess: function(data){
+
+        }
+    });
+</script>

@@ -1,0 +1,48 @@
+<% layout('/layouts/default.html', {title: 'client管理', libs: ['dataGrid']}){ %>
+<div class="main-content">
+    <div class="box box-main" style="background-color: #cecece">
+        <div class="box-header">
+            <div class="box-title">
+                <i class="fa icon-notebook"></i> ${text('人脸库用户管理')}
+            </div>
+            <div class="box-tools pull-right">
+                <a href="${ctx}/srv/client/form" class="btn btn-default btnTool" title="${text('新增client')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
+            </div>
+        </div>
+        <div class="box-body">
+            <#form:form id="searchForm" model="${client}" action="${ctx}/srv/client/listData" method="post" class="form-inline hide"
+           >
+        </#form:form>
+        <table id="dataGrid"></table>
+        <div id="dataGridPage"></div>
+    </div>
+</div>
+</div>
+<% } %>
+<script>
+    // 初始化DataGrid对象
+    $('#dataGrid').dataGrid({
+        searchForm: $("#searchForm"),
+        columnModel: [
+            {header:'${text("用户ID")}', name:'id', index:'a.id', width:150, align:"center", frozen:true, formatter: function(val, obj, row, act){
+                    return '<a href="${ctx}/srv/client/form?id='+row.id+'" class="btnList" data-title="${text("编辑client")}">'+(val||row.id)+'</a>';
+                }},
+            {header:'${text("用户名")}', name:'name', index:'a.name', width:150, align:"center"},
+            {header:'${text("性别")}', name:'gender', index:'a.gender', width:150, align:"center"},
+            {header:'${text("出生日期")}', name:'birthday', index:'a.birthday', width:150, align:"center"},
+            {header:'${text("身高")}', name:'height', index:'a.height', width:150, align:"center"},
+            {header:'${text("体重")}', name:'weight', index:'a.weight', width:150, align:"center"},
+            {header:'${text("操作")}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
+                    var actions = [];
+                        actions.push('<a href="${ctx}/srv/client/form?id='+row.id+'" class="btnList" title="${text("编辑client")}"><i class="fa fa-pencil"></i></a>&nbsp;');
+                    actions.push('<a href="${ctx}/srv/client/faceform?id='+row.id+'" class="btnList" title="${text("查看其所有人脸")}"><i class="fa fa-bars"></i></a>&nbsp;');
+                        actions.push('<a href="${ctx}/srv/client/delete?id='+row.id+'" class="btnList" title="${text("删除client")}" data-confirm="${text("确认要删除该client吗？")}"><i class="fa fa-trash-o"></i></a>&nbsp;');
+                    return actions.join('');
+                }}
+        ],
+        // 加载成功后执行事件
+        ajaxSuccess: function(data){
+
+        }
+    });
+</script>
