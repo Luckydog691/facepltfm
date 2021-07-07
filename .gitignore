@@ -1,0 +1,13 @@
+
+*.lst
+*.lst
+*.lst
+*.xml
+*.lst
+*.lst
+xmu/xmu/web/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+xmu/xmu/web/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+xmu/xmu/web/target/web.jar.original
+.idea/facepltfm.iml
+*.lst
+xmu/xmu/core/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst

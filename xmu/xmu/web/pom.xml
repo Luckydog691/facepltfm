@@ -57,6 +57,14 @@
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- baidu 人脸识别 sdk -->
+		<dependency>
+			<groupId>com.baidu.aip</groupId>
+			<artifactId>java-sdk</artifactId>
+			<version>4.15.1</version>
+		</dependency>
+
 	</dependencies>
 	
 	<build>
