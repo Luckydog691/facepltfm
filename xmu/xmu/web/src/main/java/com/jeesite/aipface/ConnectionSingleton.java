@@ -16,8 +16,8 @@ public class ConnectionSingleton
     private ConnectionSingleton(){}
     //获取唯一可用的对象
     public static AipFace getInstance(){
-        instance.setConnectionTimeoutInMillis(2000);
-        instance.setSocketTimeoutInMillis(60000);
+        //instance.setConnectionTimeoutInMillis(2000);
+        //instance.setSocketTimeoutInMillis(60000);
         return instance;
     }
 }
