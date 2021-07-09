@@ -3,7 +3,7 @@ package com.jeesite.modules.aipface.entity;
 import lombok.Data;
 
 @Data
-public class FaceInfo_List_Angel
+public class FaceInfo_Angel
 {
       private double yaw;
       private double pitch;
