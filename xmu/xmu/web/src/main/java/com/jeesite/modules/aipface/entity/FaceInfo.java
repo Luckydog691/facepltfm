@@ -12,7 +12,7 @@ public class FaceInfo
       private double face_probability;
       private FaceInfo_Angel angel;
       private double age;
-      private Long beauty;
+      private double beauty;
       private FaceInfo_Expression expression;
       private FaceInfo_FaceShape face_shape;
       private FaceInfo_Gender gender;

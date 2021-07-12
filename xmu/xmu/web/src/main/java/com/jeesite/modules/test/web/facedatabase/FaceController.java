@@ -128,7 +128,7 @@ public class FaceController extends BaseController {
         facePicture.setFilename(filename.toString());
         facePicture.setFilepath(filepath.toString());
         facePictureService.update(facePicture);
-        //System.out.println("filepath——"+facePicture.getFilepath());
+        //System.out.println("filepath——"+facePicture.getFilepath());   
         faceInfoService.sendData(filepath.toString(),null,facePicture.getId(),faceInfoService.transition("facecharactercheck"));
         //return renderResult(Global.TRUE, text("提交成功，正在分析中！"));
         List<Calresult> calresult=calresultService.findList();

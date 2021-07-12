@@ -7,4 +7,10 @@ public class FaceInfo_Emotion
 {
       private String type;
       private double probability;
+
+      public FaceInfo_Emotion(String s, double d)
+      {
+            type = s;
+            probability = d;
+      }
 }

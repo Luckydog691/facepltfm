@@ -11,5 +11,16 @@ public class FaceInfo_Quality_Occlusion
       private double mouth;
       private double left_cheek;
       private double right_cheek;
-      private double chin;
+      private double chin_contour;
+
+      public FaceInfo_Quality_Occlusion(double le, double re, double no, double mo, double lc, double rc, double ch)
+      {
+            left_eye = le;
+            right_eye = re;
+            nose = no;
+            mouth = mo;
+            left_cheek = lc;
+            right_cheek = rc;
+            chin_contour = ch;
+      }
 }
