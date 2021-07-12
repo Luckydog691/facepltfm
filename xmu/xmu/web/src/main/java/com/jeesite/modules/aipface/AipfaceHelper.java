@@ -8,20 +8,22 @@ import java.util.HashMap;
 
 public class AipfaceHelper
 {
-     private AipFace instance;
+    static private AipFace instance;
     /**
      * 检测本地图片
      *
      * @param url 图片url
      */
+     static{
+         instance = ConnectionSingleton.getInstance();
+     }
      public ImageInfo detect(String url)
      {
          String imageStr = BASE64Util.convertFileToBase64(url);
          String imageType = "BASE64";
-         AipFace inst = ConnectionSingleton.getInstance();
          HashMap<String, String> options = new HashMap<String, String>();
          options.put("face_field", "age,beauty,expression,face_shape,gender,glasses,landmark,landmark72,landmark150,quality,eye_status,emotion,face_type");
-         JSONObject ret = inst.detect(imageStr,imageType,options);
+         JSONObject ret = instance.detect(imageStr,imageType,options);
          System.out.println(ret);
          return new ImageInfo();
      }
