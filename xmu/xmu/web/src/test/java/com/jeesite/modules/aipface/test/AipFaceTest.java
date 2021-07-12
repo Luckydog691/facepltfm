@@ -3,17 +3,12 @@
  */
 package com.jeesite.modules.aipface.test;
 
-import com.baidu.aip.face.AipFace;
 import com.jeesite.common.tests.BaseSpringContextTests;
 import com.jeesite.modules.Application;
-import com.jeesite.modules.aipface.AipfaceHelper;
-import com.jeesite.modules.aipface.ConnectionSingleton;
-import org.junit.Ignore;
+import com.jeesite.modules.aipface.AipfaceDetectHelper;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-
-import java.util.HashMap;
 
 /**
  * 百度云AIPFace测试
@@ -26,7 +21,7 @@ public class AipFaceTest extends BaseSpringContextTests {
 	@Test
 	public void testDetect()
 	{
-		AipfaceHelper helper = new AipfaceHelper();
+		AipfaceDetectHelper helper = new AipfaceDetectHelper();
 		helper.detect("src/main/resources/img/black.jpg");
 	}
 
