@@ -7,18 +7,21 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-public class AipfaceHelper
+/**
+ * 图片操作类，专门用于图像解析：人脸识别，图片查找匹配
+ *
+ */
+public class AipfaceDetectHelper
 {
     static private AipFace instance;
+     static{
+         instance = ConnectionSingleton.getInstance();
+     }
     /**
      * 检测本地图片
      *
      * @param url 图片url
      */
-     static{
-         instance = ConnectionSingleton.getInstance();
-     }
      public ImageInfo detect(String url)
      {
          String imageStr = BASE64Util.convertFileToBase64(url);
@@ -142,6 +145,41 @@ public class AipfaceHelper
 
          System.out.println(res);
 
-         return new ImageInfo();
+         return res;
      }
+    /**
+     * 1:N搜索，指定人脸组ID
+     *
+     * @param url 图片url
+     * @param groupID 欲查询的组I
+     * @param maxCount 查找后返回的用户数量，返回相似度最高的几个用户，默认为1
+     */
+    public FaceSearchRet searchOneToN(String url, String groupID, Integer maxCount)
+    {
+        HashMap<String, String> options = new HashMap<String, String>();
+        String imageStr = BASE64Util.convertFileToBase64(url);
+        String imageType = "BASE64";
+        if(maxCount == null)maxCount = 1;
+        options.put("max_user_num", maxCount.toString());
+        JSONObject ret = instance.search(imageStr, imageType, groupID, options);
+        return null;
+    }
+    /**
+     * 1:1搜索，指定人脸组ID与user_id
+     *
+     * @param url 图片url
+     * @param groupID 欲查询的组I
+     * @param maxCount 查找后返回的用户数量，返回相似度最高的几个用户，默认为1
+     */
+    public FaceSearchRet searchOneToOne(String url, String groupID, Integer maxCount,String userID)
+    {
+        HashMap<String, String> options = new HashMap<String, String>();
+        String imageStr = BASE64Util.convertFileToBase64(url);
+        String imageType = "BASE64";
+        if(maxCount == null)maxCount = 1;
+        options.put("max_user_num", maxCount.toString());
+        options.put("user_id",userID);
+        JSONObject ret = instance.search(imageStr, imageType, groupID, options);
+        return null;
+    }
 }
