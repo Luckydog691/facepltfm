@@ -18,49 +18,52 @@ public class AipfaceUserOperationHelper
         instance = ConnectionSingleton.getInstance();
     }
     /*
-     * 指定本地图片，用户信息，注册该人脸
+     * 用于将已经存在于人脸库中的用户复制到一个新的组
      *
-     * @param url 图片url
-     * @param groupID 组ID
+     * @param srcGroupID 组ID1
+     * @param dstGroupID 组ID2
      * @param userID 用户ID
      */
-    public FaceOperationRet add(String url, String groupID, String userID)
+    public boolean copyUser(String userID, String srcGroupID, String dstGroupID)
     {
         HashMap<String, String> options = new HashMap<String, String>();
-        String imageStr = BASE64Util.convertFileToBase64(url);
-        String imageType = "BASE64";
-        JSONObject res = instance.addUser(imageStr, imageType, groupID, userID, options);
-        return null;
+        options.put("src_group_id", srcGroupID);
+        options.put("dst_group_id", dstGroupID);
+        JSONObject res = instance.userCopy(userID, options);
+        return res.getString("error_code").equals("0");
     }
     /*
-     * 指定本地图片，用户信息，更新该人脸，新上传的人脸图像将覆盖此userID原有所有图像
+     * 用于将用户从某个组中删除
      *
-     * @param url 图片url
      * @param groupID 组ID
      * @param userID 用户ID
      */
-    public FaceOperationRet update(String url, String groupID, String userID)
+    public boolean deleteUser(String userID, String groupID)
     {
         HashMap<String, String> options = new HashMap<String, String>();
-        String imageStr = BASE64Util.convertFileToBase64(url);
-        String imageType = "BASE64";
-        JSONObject res = instance.updateUser(imageStr, imageType, groupID, userID, options);
-        return null;
+        JSONObject res = instance.deleteUser(groupID, userID, options);
+        return res.getString("error_code").equals("0");
     }
     /*
-     * 指定用户，删除该用户所有信息，返回操作LogID
+     * 用于创建一个空的用户组，如果用户组已存在则返回错误
      *
-     * @param url 图片url
      * @param groupID 组ID
-     * @param userID 用户ID
      */
-    public boolean delete(String groupID, String userID,String faceToken)
+    public boolean createGroup(String groupID)
     {
-        // 传入可选参数调用接口
         HashMap<String, String> options = new HashMap<String, String>();
-        // 人脸删除
-        JSONObject res = instance.faceDelete(userID, groupID, faceToken, options);
-        return true;
+        JSONObject res = instance.groupAdd(groupID, options);
+        return res.getString("error_code").equals("0");
     }
-
+    /*
+     * 删除用户组下所有的用户及人脸，如果组不存在则返回错误
+     *
+     * @param groupID 组ID
+     */
+    public boolean deleteGroup(String groupID)
+    {
+        HashMap<String, String> options = new HashMap<String, String>();
+        JSONObject res = instance.groupDelete(groupID, options);
+        return res.getString("error_code").equals("0");
+    }
 }
