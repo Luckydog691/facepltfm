@@ -1,7 +1,5 @@
 package com.jeesite.modules.aipface;
 
-import com.jeesite.modules.aipface.AipfaceDetectHelper;
-import com.jeesite.modules.aipface.AipfaceFaceOperationHelper;
 import org.junit.Test;
 
 
@@ -23,8 +21,14 @@ public class baidutest {
     }
 
     @Test
+    public void uptest()
+    {
+        app.update("src/main/resources/img/black2.jpg", "LawrenLang", "nig");
+    }
+
+    @Test
     public void deltest()
     {
-        app.delete("LawrenLang", "nig", "bc3a3ae5dd69b9edbfc5ba2695659092");
+        app.delete("LawrenLang", "nig2", "bc3a3ae5dd69b9edbfc5ba2695659092");
     }
 }

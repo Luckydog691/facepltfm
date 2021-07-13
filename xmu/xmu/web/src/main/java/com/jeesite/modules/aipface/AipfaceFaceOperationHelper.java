@@ -17,6 +17,26 @@ public class AipfaceFaceOperationHelper
     static{
         instance = ConnectionSingleton.getInstance();
     }
+
+
+    private FaceOperationRet tranpic(JSONObject res)
+    {
+        JSONObject result = res.getJSONObject("result");
+
+        FaceOperationRet ret = new FaceOperationRet();
+        ret.setLog_id(res.getLong("log_id"));
+        ret.setFace_token(result.getString("face_token"));
+        ret.setLocation(new FaceInfo_Location(
+                result.getJSONObject("location").getDouble("top"),
+                result.getJSONObject("location").getDouble("left"),
+                result.getJSONObject("location").getLong("rotation"),
+                result.getJSONObject("location").getDouble("width"),
+                result.getJSONObject("location").getDouble("height")
+        ));
+
+        return ret;
+    }
+
     /*
      * 指定本地图片，用户信息，注册该人脸
      *
@@ -33,18 +53,7 @@ public class AipfaceFaceOperationHelper
         System.out.println(res);
         JSONObject result = res.getJSONObject("result");
 
-        FaceOperationRet ret = new FaceOperationRet();
-        ret.setLog_id(res.getLong("log_id"));
-        ret.setFace_token(result.getString("face_token"));
-        ret.setLocation(new FaceInfo_Location(
-                result.getJSONObject("location").getDouble("top"),
-                result.getJSONObject("location").getDouble("left"),
-                result.getJSONObject("location").getLong("rotation"),
-                result.getJSONObject("location").getDouble("width"),
-                result.getJSONObject("location").getDouble("height")
-        ));
-
-        return ret;
+        return tranpic(res);
     }
     /*
      * 指定本地图片，用户信息，更新该人脸，新上传的人脸图像将覆盖此userID原有所有图像
@@ -59,7 +68,8 @@ public class AipfaceFaceOperationHelper
         String imageStr = BASE64Util.convertFileToBase64(url);
         String imageType = "BASE64";
         JSONObject res = instance.updateUser(imageStr, imageType, groupID, userID, options);
-        return null;
+        System.out.println(res);
+        return tranpic(res);
     }
     /*
      * 指定用户，删除该用户所有信息，返回操作boolean
