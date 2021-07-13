@@ -1,4 +1,4 @@
-package com.jeesite.modules.test;
+package com.jeesite.modules.aipface;
 
 import com.jeesite.modules.aipface.AipfaceDetectHelper;
 import com.jeesite.modules.aipface.AipfaceFaceOperationHelper;
