@@ -30,7 +30,7 @@ public class AipfaceUserOperationHelper
         options.put("src_group_id", srcGroupID);
         options.put("dst_group_id", dstGroupID);
         JSONObject res = instance.userCopy(userID, options);
-        return res.getString("error_code").equals("0");
+        return res.getString("error_code").equals(0);
     }
     /*
      * 用于将用户从某个组中删除
@@ -42,7 +42,7 @@ public class AipfaceUserOperationHelper
     {
         HashMap<String, String> options = new HashMap<String, String>();
         JSONObject res = instance.deleteUser(groupID, userID, options);
-        return res.getString("error_code").equals("0");
+        return res.getString("error_code").equals(0);
     }
     /*
      * 用于创建一个空的用户组，如果用户组已存在则返回错误
@@ -53,7 +53,7 @@ public class AipfaceUserOperationHelper
     {
         HashMap<String, String> options = new HashMap<String, String>();
         JSONObject res = instance.groupAdd(groupID, options);
-        return res.getString("error_code").equals("0");
+        return res.getString("error_code").equals(0);
     }
     /*
      * 删除用户组下所有的用户及人脸，如果组不存在则返回错误
@@ -64,6 +64,6 @@ public class AipfaceUserOperationHelper
     {
         HashMap<String, String> options = new HashMap<String, String>();
         JSONObject res = instance.groupDelete(groupID, options);
-        return res.getString("error_code").equals("0");
+        return res.getString("error_code").equals(0);
     }
 }
