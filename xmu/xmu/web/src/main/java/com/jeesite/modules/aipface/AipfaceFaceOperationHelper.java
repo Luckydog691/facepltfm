@@ -1,9 +1,7 @@
 package com.jeesite.modules.aipface;
 
 import com.baidu.aip.face.AipFace;
-import com.jeesite.modules.aipface.entity.FaceOperationRet;
-import com.jeesite.modules.aipface.entity.FaceSearchRet;
-import com.jeesite.modules.aipface.entity.ImageInfo;
+import com.jeesite.modules.aipface.entity.*;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -32,7 +30,21 @@ public class AipfaceFaceOperationHelper
         String imageStr = BASE64Util.convertFileToBase64(url);
         String imageType = "BASE64";
         JSONObject res = instance.addUser(imageStr, imageType, groupID, userID, options);
-        return null;
+        System.out.println(res);
+        JSONObject result = res.getJSONObject("result");
+
+        FaceOperationRet ret = new FaceOperationRet();
+        ret.setLog_id(res.getLong("log_id"));
+        ret.setFace_token(result.getString("face_token"));
+        ret.setLocation(new FaceInfo_Location(
+                result.getJSONObject("location").getDouble("top"),
+                result.getJSONObject("location").getDouble("left"),
+                result.getJSONObject("location").getLong("rotation"),
+                result.getJSONObject("location").getDouble("width"),
+                result.getJSONObject("location").getDouble("height")
+        ));
+
+        return ret;
     }
     /*
      * 指定本地图片，用户信息，更新该人脸，新上传的人脸图像将覆盖此userID原有所有图像
@@ -50,7 +62,7 @@ public class AipfaceFaceOperationHelper
         return null;
     }
     /*
-     * 指定用户，删除该用户所有信息，返回操作LogID
+     * 指定用户，删除该用户所有信息，返回操作boolean
      *
      * @param url 图片url
      * @param groupID 组ID
@@ -62,6 +74,7 @@ public class AipfaceFaceOperationHelper
         HashMap<String, String> options = new HashMap<String, String>();
         // 人脸删除
         JSONObject res = instance.faceDelete(userID, groupID, faceToken, options);
-        return true;
+
+        return res.getString("error_msg").equals("SUCCESS");
     }
 }
