@@ -11,5 +11,5 @@ public class User
       private String user_id;
       private String user_info;
       private ArrayList<ImageInfo> image_array;
-      private float score;
+      private double score;
 }

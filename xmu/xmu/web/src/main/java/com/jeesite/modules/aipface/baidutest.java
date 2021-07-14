@@ -5,32 +5,44 @@ import org.junit.Test;
 
 public class baidutest {
 
-    static AipfaceFaceOperationHelper app = new AipfaceFaceOperationHelper();
-    static AipfaceDetectHelper aipfaceFaceOperationHelper = new AipfaceDetectHelper();
+    static AipfaceFaceOperationHelper afoh = new AipfaceFaceOperationHelper();
+    static AipfaceDetectHelper adh = new AipfaceDetectHelper();
     static AipfaceFaceSearchHelper afsh = new AipfaceFaceSearchHelper();
 
     @Test
     public void detest()
     {
-        aipfaceFaceOperationHelper.detect("src/main/resources/img/black.jpg");
+        adh.detect("src/main/resources/img/black.jpg");
+    }
+
+    @Test
+    public void searchNtest()
+    {
+        adh.searchOneToN("src/main/resources/img/black.jpg", "LawrenLang", 1);
+    }
+
+    @Test
+    public void searchOtest()
+    {
+        adh.searchOneToOne("src/main/resources/img/black.jpg", "LawrenLang", "nig2", 1);
     }
 
     @Test
     public void addtest()
     {
-        app.add("src/main/resources/img/black2.jpg", "LawrenLang", "nig2");
+        afoh.add("src/main/resources/img/black2.jpg", "LawrenLang", "nig2");
     }
 
     @Test
     public void uptest()
     {
-        app.update("src/main/resources/img/black2.jpg", "LawrenLang", "nig");
+        afoh.update("src/main/resources/img/black.jpg", "LawrenLang", "nig");
     }
 
     @Test
     public void deltest()
     {
-        app.delete("LawrenLang", "nig2", "bc3a3ae5dd69b9edbfc5ba2695659092");
+        afoh.delete("LawrenLang", "nig2", "bc3a3ae5dd69b9edbfc5ba2695659092");
     }
 
     @Test
