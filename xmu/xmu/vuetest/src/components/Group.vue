@@ -1,14 +1,16 @@
+<head>
+<meta charset="UTF-8">
+<!-- 引入样式 -->
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+
 <template>
-  <div>
-    <table>
-      <tr>
-        <th>组名</th>
-      </tr>
-      <tr v-for="item in groups">
-        <td>{{item.group_id}}</td>
-      </tr>
-    </table>
-  </div>
+  <el-table :data="groups" class="data_table">
+    <el-table-column prop="group_id" label="组名" width="180">
+    </el-table-column>
+  </el-table>
 </template>
 
 <script>
@@ -32,7 +34,5 @@
       }
     }
 </script>
-
 <style scoped>
-
 </style>
