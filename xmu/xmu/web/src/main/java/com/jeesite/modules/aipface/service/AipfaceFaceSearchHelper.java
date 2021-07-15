@@ -1,12 +1,15 @@
-package com.jeesite.modules.aipface;
+package com.jeesite.modules.aipface.service;
 
 import com.alibaba.fastjson.JSON;
 import com.baidu.aip.face.AipFace;
+import com.jeesite.modules.aipface.ConnectionSingleton;
+import com.jeesite.modules.aipface.entity.Group;
 import com.jeesite.modules.aipface.entity.SimpleFaceInfo;
 import com.jeesite.modules.aipface.entity.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONString;
+import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,6 +21,7 @@ import java.util.HashMap;
  * 查找类，专门用于数据查询：用户组，用户，人脸表
  *
  */
+@Service
 public class AipfaceFaceSearchHelper
 {
     static private AipFace instance;
@@ -81,18 +85,20 @@ public class AipfaceFaceSearchHelper
      *
      * @param length 最多返回数量
      */
-    public ArrayList<String> selectGroupList(Integer length)
+    public ArrayList<Group> selectGroupList(Integer length)
     {
         HashMap<String, String> options = new HashMap<String, String>();
         options.put("length", length.toString());
         JSONObject res = instance.getGroupList(options);
         JSONArray group_id_list = res.getJSONObject("result").getJSONArray("group_id_list");
 
-        ArrayList<String> ret = new ArrayList<>();
+        ArrayList<Group> ret = new ArrayList<>();
 
         for(int i = 0; i < group_id_list.length(); i++)
         {
-            ret.add(String.valueOf(group_id_list.get(i)));
+            Group elem = new Group();
+            elem.setGroup_id(String.valueOf(group_id_list.get(i)));
+            ret.add(elem);
         }
 
         return ret;

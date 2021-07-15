@@ -1,5 +1,8 @@
 package com.jeesite.modules.aipface;
 
+import com.jeesite.modules.aipface.service.AipfaceDetectHelper;
+import com.jeesite.modules.aipface.service.AipfaceFaceOperationHelper;
+import com.jeesite.modules.aipface.service.AipfaceFaceSearchHelper;
 import org.junit.Test;
 
 

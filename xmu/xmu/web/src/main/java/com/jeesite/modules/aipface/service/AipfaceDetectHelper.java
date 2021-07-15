@@ -1,9 +1,12 @@
-package com.jeesite.modules.aipface;
+package com.jeesite.modules.aipface.service;
 
 import com.baidu.aip.face.AipFace;
+import com.jeesite.modules.aipface.util.BASE64Util;
+import com.jeesite.modules.aipface.ConnectionSingleton;
 import com.jeesite.modules.aipface.entity.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +14,7 @@ import java.util.HashMap;
  * 图片操作类，专门用于图像解析：人脸识别，图片查找匹配
  *
  */
+@Service
 public class AipfaceDetectHelper
 {
     static private AipFace instance;
@@ -18,7 +22,7 @@ public class AipfaceDetectHelper
          instance = ConnectionSingleton.getInstance();
      }
     /**
-     * 检测本地图片
+     * 检测本地图片s
      *
      * @param url 图片url
      */

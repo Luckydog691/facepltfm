@@ -1,4 +1,4 @@
-package com.jeesite.modules.aipface;
+package com.jeesite.modules.aipface.util;
 
 import sun.misc.BASE64Encoder;
 
