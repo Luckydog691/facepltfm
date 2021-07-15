@@ -2,10 +2,11 @@ package com.jeesite.modules.aipface.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @Data
-public class FaceInfo
+public class FaceInfo implements Serializable
 {
       private String face_token;
       private FaceInfo_Location location;

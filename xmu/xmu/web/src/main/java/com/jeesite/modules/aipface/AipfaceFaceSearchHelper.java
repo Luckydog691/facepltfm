@@ -2,16 +2,20 @@ package com.jeesite.modules.aipface;
 
 import com.alibaba.fastjson.JSON;
 import com.baidu.aip.face.AipFace;
+import com.jeesite.modules.aipface.entity.SimpleFaceInfo;
 import com.jeesite.modules.aipface.entity.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONString;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
- * 图片操作类，专门用于图像解析：人脸识别，图片查找匹配
+ * 查找类，专门用于数据查询：用户组，用户，人脸表
  *
  */
 public class AipfaceFaceSearchHelper
@@ -91,6 +95,34 @@ public class AipfaceFaceSearchHelper
             ret.add(String.valueOf(group_id_list.get(i)));
         }
 
+        return ret;
+    }
+    /*
+     * 用于获取一个用户的全部人脸列表
+     *
+     * @param length 最多返回数量
+     */
+    public ArrayList<SimpleFaceInfo> selectFaceList(String groupID,String userID)
+    {
+        HashMap<String, String> options = new HashMap<String, String>();
+        JSONObject res = instance.faceGetlist(userID,groupID,options);
+        JSONArray face_list = res.getJSONObject("result").getJSONArray("face_list");
+
+        ArrayList<SimpleFaceInfo> ret = new ArrayList<>();
+
+        for(int i = 0; i < face_list.length(); i++)
+        {
+            JSONObject jsonObject = (JSONObject)face_list.get(i);
+            SimpleFaceInfo elem = new SimpleFaceInfo();
+            elem.setFace_token(jsonObject.get("face_token").toString());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                elem.setCtime(sdf.parse(jsonObject.get("ctime").toString()));
+            }catch (ParseException exception) {
+                exception.printStackTrace();
+            }
+            ret.add(elem);
+        }
         return ret;
     }
 }
