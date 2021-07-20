@@ -1,6 +1,8 @@
 package com.jeesite.modules.aipface.controller;
 
 import com.jeesite.modules.aipface.entity.Group;
+import com.jeesite.modules.aipface.entity.SimpleFaceInfo;
+import com.jeesite.modules.aipface.entity.SimpleUserInfo;
 import com.jeesite.modules.aipface.service.AipfaceFaceSearchHelper;
 import com.jeesite.modules.aipface.service.AipfaceUserOperationHelper;
 import org.jasig.cas.client.authentication.SimpleGroup;
@@ -21,6 +23,12 @@ public class AipfaceController {
     @Autowired
     AipfaceUserOperationHelper aipfaceUserOperationHelper;
 
+    /*
+    *
+    * Group页面需要用的接口
+    *
+    *
+    * */
     @GetMapping("/findGroup")
     public List<Group> findGroup(){
         ArrayList<Group> ret =  aipfaceFaceSearchHelper.selectGroupList(100);
@@ -30,6 +38,23 @@ public class AipfaceController {
     @PostMapping("/addGroup")
     public boolean addGroup(@RequestParam(value = "name") String groupName){
         boolean ret =  aipfaceUserOperationHelper.createGroup(groupName);
+        return ret;
+    }
+
+    @DeleteMapping("/delGroup")
+    public boolean delGroup(@RequestParam(value = "name") String groupName){
+        boolean ret =  aipfaceUserOperationHelper.deleteGroup(groupName);
+        return ret;
+    }
+    /*
+     *
+     * User页面需要用的接口
+     *
+     * */
+
+    @GetMapping("/findUser")
+    public List<SimpleUserInfo>findUser(@RequestParam(value = "gname") String groupName, @RequestParam(value = "length") Integer length){
+        ArrayList<SimpleUserInfo>ret = aipfaceFaceSearchHelper.selectUserList(groupName,length);
         return ret;
     }
 }

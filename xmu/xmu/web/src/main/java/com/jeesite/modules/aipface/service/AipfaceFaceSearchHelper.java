@@ -5,6 +5,7 @@ import com.baidu.aip.face.AipFace;
 import com.jeesite.modules.aipface.ConnectionSingleton;
 import com.jeesite.modules.aipface.entity.Group;
 import com.jeesite.modules.aipface.entity.SimpleFaceInfo;
+import com.jeesite.modules.aipface.entity.SimpleUserInfo;
 import com.jeesite.modules.aipface.entity.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -64,20 +65,21 @@ public class AipfaceFaceSearchHelper
      * @param groupID 组ID
      * @param length 最多返回数量
      */
-    public ArrayList<String> selectUserList(String groupID, Integer length)
+    public ArrayList<SimpleUserInfo> selectUserList(String groupID, Integer length)
     {
         HashMap<String, String> options = new HashMap<String, String>();
         options.put("length", length.toString());
         JSONObject res = instance.getGroupUsers(groupID,options);
         JSONArray user_id_list = res.getJSONObject("result").getJSONArray("user_id_list");
 
-        ArrayList<String> ret = new ArrayList<>();
+        ArrayList<SimpleUserInfo> ret = new ArrayList<>();
 
         for(int i = 0; i < user_id_list.length(); i++)
         {
-            ret.add(String.valueOf(user_id_list.get(i)));
+            SimpleUserInfo e = new SimpleUserInfo();
+            e.setUser_name(String.valueOf(user_id_list.get(i)));
+            ret.add(e);
         }
-
         return ret;
     }
     /*
