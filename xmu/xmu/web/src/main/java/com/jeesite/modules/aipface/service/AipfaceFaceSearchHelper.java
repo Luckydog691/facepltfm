@@ -129,6 +129,7 @@ public class AipfaceFaceSearchHelper
             }catch (ParseException exception) {
                 exception.printStackTrace();
             }
+            elem.setTime_string(jsonObject.get("ctime").toString());
             ret.add(elem);
         }
         return ret;

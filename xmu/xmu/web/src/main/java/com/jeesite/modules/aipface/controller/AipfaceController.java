@@ -31,7 +31,7 @@ public class AipfaceController {
     * */
     @GetMapping("/findGroup")
     public List<Group> findGroup(){
-        ArrayList<Group> ret =  aipfaceFaceSearchHelper.selectGroupList(100);
+        List<Group> ret =  aipfaceFaceSearchHelper.selectGroupList(100);
         return ret;
     }
 
@@ -54,7 +54,18 @@ public class AipfaceController {
 
     @GetMapping("/findUser")
     public List<SimpleUserInfo>findUser(@RequestParam(value = "gname") String groupName, @RequestParam(value = "length") Integer length){
-        ArrayList<SimpleUserInfo>ret = aipfaceFaceSearchHelper.selectUserList(groupName,length);
+        List<SimpleUserInfo>ret = aipfaceFaceSearchHelper.selectUserList(groupName,length);
+        return ret;
+    }
+
+    /*
+     *
+     * Image页面需要用的接口
+     *
+     * */
+    @GetMapping("/findImageList")
+    public List<SimpleFaceInfo>findImageList(@RequestParam(value = "gname") String groupName, @RequestParam(value = "uname") String userName){
+        List<SimpleFaceInfo>ret = aipfaceFaceSearchHelper.selectFaceList(groupName,userName);
         return ret;
     }
 }

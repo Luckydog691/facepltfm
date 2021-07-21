@@ -29,11 +29,11 @@
           <template #default="scope">
             <el-button
               size="mini"
-              @click="goToGroup(scope.row.group_id)">查看</el-button>
+              @click="goToGroup(scope.row.group_id)">查看用户列表</el-button>
             <el-button
               size="mini"
               type="danger"
-              @click="delGroup(scope.row.group_id)">删除</el-button>
+              @click="delGroup(scope.row.group_id)">删除人脸组</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -44,7 +44,7 @@
 
 <script>
 export default {
-  name: "groups",
+  name: "group",
   data(){
     return {
       dialogVisible: false,

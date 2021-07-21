@@ -11,4 +11,5 @@ public class SimpleFaceInfo implements Serializable
 {
       private String face_token;
       private Date ctime;
+      private String time_string;
 }
