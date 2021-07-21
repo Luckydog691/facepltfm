@@ -1,15 +1,16 @@
 package com.jeesite.modules.aipface.controller;
 
+import com.jeesite.modules.aipface.entity.FaceInfo;
 import com.jeesite.modules.aipface.entity.Group;
 import com.jeesite.modules.aipface.entity.SimpleFaceInfo;
 import com.jeesite.modules.aipface.entity.SimpleUserInfo;
+import com.jeesite.modules.aipface.service.AipfaceDetectHelper;
+import com.jeesite.modules.aipface.service.AipfaceFaceOperationHelper;
 import com.jeesite.modules.aipface.service.AipfaceFaceSearchHelper;
 import com.jeesite.modules.aipface.service.AipfaceUserOperationHelper;
-import org.jasig.cas.client.authentication.SimpleGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,12 @@ public class AipfaceController {
 
     @Autowired
     AipfaceUserOperationHelper aipfaceUserOperationHelper;
+
+    @Autowired
+    AipfaceFaceOperationHelper aipfaceFaceOperationHelper;
+
+    @Autowired
+    AipfaceDetectHelper aipfaceDetectHelper;
 
     /*
     *
@@ -58,6 +65,22 @@ public class AipfaceController {
         return ret;
     }
 
+    @PostMapping("/addUser")
+    public boolean addUser(@RequestParam(value = "url") String url, @RequestParam(value = "gname") String groupName, @RequestParam(value = "uname") String userName){
+        ArrayList<FaceInfo> list = aipfaceDetectHelper.detect(url).getFace_list();
+        if(list.size() == 0) return false;
+        if(list.get(0).getFace_probability() < 0.6) return false;
+        aipfaceFaceOperationHelper.addUser(url, groupName, userName);
+        return true;
+    }
+
+    @DeleteMapping("/delUser")
+    public boolean delUser(@RequestParam(value = "gname") String groupName, @RequestParam(value = "uname") String userName){
+        boolean ret =  aipfaceUserOperationHelper.deleteUser(userName, groupName);
+        return ret;
+    }
+
+
     /*
      *
      * Image页面需要用的接口
@@ -67,5 +90,20 @@ public class AipfaceController {
     public List<SimpleFaceInfo>findImageList(@RequestParam(value = "gname") String groupName, @RequestParam(value = "uname") String userName){
         List<SimpleFaceInfo>ret = aipfaceFaceSearchHelper.selectFaceList(groupName,userName);
         return ret;
+    }
+
+    @DeleteMapping("/delImage")
+    public boolean delImage(@RequestParam(value = "gname") String groupName, @RequestParam(value = "uname") String userName, @RequestParam(value = "url") String url){
+        boolean ret =  aipfaceFaceOperationHelper.deleteUser(groupName, userName, url);
+        return ret;
+    }
+
+    @PostMapping("/addImage")
+    public boolean addImage(@RequestParam(value = "url") String url, @RequestParam(value = "gname") String groupName, @RequestParam(value = "uname") String userName){
+        ArrayList<FaceInfo> list = aipfaceDetectHelper.detect(url).getFace_list();
+        if(list.size() == 0) return false;
+        if(list.get(0).getFace_probability() < 0.6) return false;
+        aipfaceFaceOperationHelper.updateUser(url, groupName, userName);
+        return true;
     }
 }

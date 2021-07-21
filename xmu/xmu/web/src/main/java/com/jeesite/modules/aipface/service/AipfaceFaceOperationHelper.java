@@ -48,7 +48,7 @@ public class AipfaceFaceOperationHelper
      * @param groupID 组ID
      * @param userID 用户ID
      */
-    public FaceOperationRet add(String url, String groupID, String userID)
+    public FaceOperationRet addUser(String url, String groupID, String userID)
     {
         HashMap<String, String> options = new HashMap<String, String>();
         String imageStr = BASE64Util.convertFileToBase64(url);
@@ -66,7 +66,7 @@ public class AipfaceFaceOperationHelper
      * @param groupID 组ID
      * @param userID 用户ID
      */
-    public FaceOperationRet update(String url, String groupID, String userID)
+    public FaceOperationRet updateUser(String url, String groupID, String userID)
     {
         HashMap<String, String> options = new HashMap<String, String>();
         String imageStr = BASE64Util.convertFileToBase64(url);
@@ -82,7 +82,7 @@ public class AipfaceFaceOperationHelper
      * @param groupID 组ID
      * @param userID 用户ID
      */
-    public boolean delete(String groupID, String userID,String faceToken)
+    public boolean deleteUser(String groupID, String userID,String faceToken)
     {
         // 传入可选参数调用接口
         HashMap<String, String> options = new HashMap<String, String>();

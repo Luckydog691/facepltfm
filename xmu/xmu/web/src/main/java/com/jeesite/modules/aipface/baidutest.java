@@ -33,19 +33,19 @@ public class baidutest {
     @Test
     public void addtest()
     {
-        afoh.add("src/main/resources/img/black2.jpg", "LawrenLang", "nig2");
+        afoh.addUser("src/main/resources/img/black2.jpg", "LawrenLang", "nig2");
     }
 
     @Test
     public void uptest()
     {
-        afoh.update("src/main/resources/img/black.jpg", "LawrenLang", "nig");
+        afoh.updateUser("src/main/resources/img/black.jpg", "LawrenLang", "nig");
     }
 
     @Test
     public void deltest()
     {
-        afoh.delete("LawrenLang", "nig2", "bc3a3ae5dd69b9edbfc5ba2695659092");
+        afoh.deleteUser("LawrenLang", "nig2", "bc3a3ae5dd69b9edbfc5ba2695659092");
     }
 
     @Test
