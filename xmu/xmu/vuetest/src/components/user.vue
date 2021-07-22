@@ -1,9 +1,22 @@
 
 <template>
   <div>
+    <!-- 删除用户 的 dialog-->
+    <el-dialog
+      title="警告"
+      :visible.sync="delDialogVisible"
+      width="30%"
+      @close="closeDialog">
+      <span>将删除该用户之下的所有人脸信息，该操作不可取消！</span>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="closeDialog()">取 消</el-button>
+    <el-button type="primary" @click="delUser()">确 定</el-button>
+      </span>
+    </el-dialog>
+    <!--新建用户 Dialog-->
     <el-dialog
       title="新建用户"
-      :visible.sync="dialogVisible"
+      :visible.sync="addDialogVisible"
       width="70%"
       @close="closeDialog"
     >
@@ -37,7 +50,7 @@
     </el-breadcrumb>
     <el-container style="height: 500px; border: 1px solid #eee">
       <el-header style="text-align: right; font-size: 12px">
-        <el-button @click="dialogVisible=true">新建用户</el-button>
+        <el-button @click="addDialogVisible=true">新建用户</el-button>
       </el-header>
       <el-table :data="users" border height="250" class="data_table">
         <el-table-column prop="user_name" align="center" label="用户名" width="640"></el-table-column>
@@ -52,7 +65,7 @@
             <el-button
               size="mini"
               type="danger"
-              @click="delUser(scope.row.group_id)">删除用户</el-button>
+              @click="preDelUser(scope.row.user_name)">删除用户</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -68,7 +81,9 @@ export default {
   name: "user",
   data(){
     return {
-      dialogVisible: false,
+      delDialogVisible: false,
+      addDialogVisible: false,
+      preDeleteUserName: "",
       groupName:'',
       userForm: {
         name: '',
@@ -100,7 +115,8 @@ export default {
     },
     //关闭窗口
     closeDialog() {
-      this.dialogVisible = false
+      this.delDialogVisible = false
+      this.addDialogVisible = false
       this.userForm.url = null
       this.userForm.name = null
     },
@@ -150,6 +166,24 @@ export default {
       rd.onloadend = function (e) {
         _this.userForm.url = this.result // this指向当前方法onloadend的作用域
       }
+    },
+    preDelUser(userName){
+      this.preDeleteUserName = userName
+      this.delDialogVisible = true
+    },
+    //删除用户
+    delUser(){
+      this.delDialogVisible = false
+      axios.delete('http://localhost:8080/web/sample/aipface/delUser?gname=' + this.groupName + '&uname=' + this.preDeleteUserName, {
+      })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      //刷新数据
+      this.$router.go(0)
     }
   }
 }

@@ -2,9 +2,23 @@
 
 <template>
   <div>
+    <!-- 删除人脸组 的 dialog-->
+    <el-dialog
+      title="警告"
+      :visible.sync="delDialogVisible"
+      width="30%"
+      @close="closeDialog">
+      <span>将删除该人脸组下的所有用户与人脸，该操作不可取消！</span>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="closeDialog()">取 消</el-button>
+    <el-button type="primary" @click="delGroup()">确 定</el-button>
+      </span>
+    </el-dialog>
+
+    <!-- 新建人脸组 的 dialog-->
     <el-dialog
       title="新建人脸组"
-      :visible.sync="dialogVisible"
+      :visible.sync="addDialogVisible"
       width="30%"
       @close="closeDialog"
     >
@@ -19,9 +33,10 @@
             </span>
       </template>
     </el-dialog>
+
     <el-container style="height: 500px; border: 1px solid #eee">
       <el-header style="text-align: right; font-size: 12px">
-        <el-button @click="dialogVisible=true">新建人脸组</el-button>
+        <el-button @click="addDialogVisible=true">新建人脸组</el-button>
       </el-header>
       <el-table :data="groups" border height="250" class="data_table">
         <el-table-column prop="group_id" align="center" label="组名" width="640"></el-table-column>
@@ -33,7 +48,7 @@
             <el-button
               size="mini"
               type="danger"
-              @click="delGroup(scope.row.group_id)">删除人脸组</el-button>
+              @click="preDelGroup(scope.row.group_id)">删除人脸组</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -47,7 +62,9 @@ export default {
   name: "group",
   data(){
     return {
-      dialogVisible: false,
+      addDialogVisible: false,
+      delDialogVisible: false,
+      preDeleteGroupName: "",
       groupForm: {
         name: ''
       },
@@ -68,7 +85,8 @@ export default {
   methods:{
     //关闭窗口
     closeDialog() {
-      this.dialogVisible = false
+      this.addDialogVisible = false
+      this.delDialogVisible = false
     },
     //新建人脸组
     addGroup (str) {
@@ -83,15 +101,20 @@ export default {
         data: {
         }
       })
-      this.dialogVisible = false
+      this.addDialogVisible = false
       //刷新数据
       this.$router.go(0)
     },
-    delGroup (str) {
-      this.dialogVisible = false
+    //预删除用户组，弹出dialog
+    preDelGroup (str) {
+      this.preDeleteGroupName = str
+      this.delDialogVisible = true
+    },
+    delGroup () {
+      this.delDialogVisible = false
       this.$http({
         method: 'delete',
-        url: 'http://localhost:8080/web/sample/aipface/delGroup?name='+str,
+        url: 'http://localhost:8080/web/sample/aipface/delGroup?name='+this.preDeleteGroupName,
         data: {
         }
       })
