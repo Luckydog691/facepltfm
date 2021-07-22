@@ -72,13 +72,18 @@ export default {
     },
     //新建人脸组
     addGroup (str) {
-      this.dialogVisible = false
+      if(!str)
+      {
+          this.$message.error('组名不能为空!');
+          return;
+      }
       this.$http({
         method: 'post',
         url: 'http://localhost:8080/web/sample/aipface/addGroup?name='+str,
         data: {
         }
       })
+      this.dialogVisible = false
       //刷新数据
       this.$router.go(0)
     },

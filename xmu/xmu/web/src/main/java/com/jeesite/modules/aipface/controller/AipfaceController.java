@@ -11,7 +11,10 @@ import com.jeesite.modules.aipface.service.AipfaceUserOperationHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -66,7 +69,12 @@ public class AipfaceController {
     }
 
     @PostMapping("/addUser")
-    public boolean addUser(@RequestParam(value = "url") String url, @RequestParam(value = "gname") String groupName, @RequestParam(value = "uname") String userName){
+    @ResponseBody
+    public boolean addUser(@RequestBody HashMap<String,String> mp){
+        String url = mp.get("url");
+        String groupName = mp.get("gname");
+        String userName = mp.get("uname");
+        url = url.substring(url.indexOf(',') + 1);
         ArrayList<FaceInfo> list = aipfaceDetectHelper.detect(url).getFace_list();
         if(list.size() == 0) return false;
         if(list.get(0).getFace_probability() < 0.6) return false;

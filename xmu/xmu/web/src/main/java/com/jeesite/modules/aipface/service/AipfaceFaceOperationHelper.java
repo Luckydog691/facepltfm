@@ -51,7 +51,8 @@ public class AipfaceFaceOperationHelper
     public FaceOperationRet addUser(String url, String groupID, String userID)
     {
         HashMap<String, String> options = new HashMap<String, String>();
-        String imageStr = BASE64Util.convertFileToBase64(url);
+        //String imageStr = BASE64Util.convertFileToBase64(url);
+        String imageStr = url;
         String imageType = "BASE64";
         JSONObject res = instance.addUser(imageStr, imageType, groupID, userID, options);
         System.out.println(res);

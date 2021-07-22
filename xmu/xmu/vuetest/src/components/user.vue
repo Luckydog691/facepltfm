@@ -4,7 +4,7 @@
     <el-dialog
       title="新建用户"
       :visible.sync="dialogVisible"
-      width="30%"
+      width="70%"
       @close="closeDialog"
     >
       <el-form :model="userForm">
@@ -16,10 +16,14 @@
         accept="image/jpeg,image/gif,image/png"
         action="#"
         :http-request="httpRequest"
-        :on-success="handleAvatarSuccess"
-        :before-upload="beforeAvatarUpload">
-        <img v-if="userForm.url" :src="userForm.url" class="avatar">
-        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        :show-file-list="false"
+        :before-upload="beforeAvatarUpload"
+        list-type="picture"
+        >
+        <img v-if="userForm.url" :src="userForm.url" class="avatar" width="108" height="108">
+        <el-button size="small" type="primary">
+          <div v-if="userForm.url">更换图片</div><div v-else>上传图片</div>
+        </el-button>
       </el-upload>
       <template #footer>
             <span class="dialog-footer">
@@ -58,6 +62,8 @@
 
 
 <script>
+import axios from "axios";
+
 export default {
   name: "user",
   data(){
@@ -95,10 +101,8 @@ export default {
     //关闭窗口
     closeDialog() {
       this.dialogVisible = false
-    },
-    //图片是否上传成功
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
+      this.userForm.url = null
+      this.userForm.name = null
     },
     //判断图片是否合法
     beforeAvatarUpload(file) {
@@ -115,7 +119,28 @@ export default {
     },
     //上传用户图片信息
     uploadUser(userName,imgUrl){
-
+      if (!userName) {
+        this.$message.error('用户名不能为空!');
+        return;
+      }
+      if (!imgUrl) {
+        this.$message.error('图片不能为空!');
+        return;
+      }
+      axios.post('http://localhost:8080/web/sample/aipface/addUser', {
+        gname: this.groupName,
+        uname: userName,
+        url:imgUrl
+      })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      //刷新数据
+      this.closeDialog()
+      this.$router.go(0)
     },
     httpRequest (data) {
       let _this = this
@@ -123,7 +148,7 @@ export default {
       let file = data.file
       rd.readAsDataURL(file) // 文件读取装换为base64类型
       rd.onloadend = function (e) {
-        _this.data.imageUrl = this.result // this指向当前方法onloadend的作用域
+        _this.userForm.url = this.result // this指向当前方法onloadend的作用域
       }
     }
   }
