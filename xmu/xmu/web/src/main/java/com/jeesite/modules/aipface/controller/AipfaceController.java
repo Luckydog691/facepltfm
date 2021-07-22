@@ -38,20 +38,17 @@ public class AipfaceController {
     * */
     @GetMapping("/findGroup")
     public List<Group> findGroup(){
-        List<Group> ret =  aipfaceFaceSearchHelper.selectGroupList(100);
-        return ret;
+        return aipfaceFaceSearchHelper.selectGroupList(100);
     }
 
     @PostMapping("/addGroup")
     public boolean addGroup(@RequestParam(value = "name") String groupName){
-        boolean ret =  aipfaceUserOperationHelper.createGroup(groupName);
-        return ret;
+        return aipfaceUserOperationHelper.createGroup(groupName);
     }
 
     @DeleteMapping("/delGroup")
     public boolean delGroup(@RequestParam(value = "name") String groupName){
-        boolean ret =  aipfaceUserOperationHelper.deleteGroup(groupName);
-        return ret;
+        return aipfaceUserOperationHelper.deleteGroup(groupName);
     }
     /*
      *
@@ -61,8 +58,7 @@ public class AipfaceController {
 
     @GetMapping("/findUser")
     public List<SimpleUserInfo>findUser(@RequestParam(value = "gname") String groupName, @RequestParam(value = "length") Integer length){
-        List<SimpleUserInfo>ret = aipfaceFaceSearchHelper.selectUserList(groupName,length);
-        return ret;
+        return aipfaceFaceSearchHelper.selectUserList(groupName,length);
     }
 
     @PostMapping("/addUser")
@@ -76,14 +72,12 @@ public class AipfaceController {
         ArrayList<FaceInfo> list = imageInfo.getFace_list();
         if(list.size() == 0) return false;
         if(list.get(0).getFace_probability() < 0.6) return false;
-        aipfaceFaceOperationHelper.addUser(url, groupName, userName);
-        return true;
+        return aipfaceFaceOperationHelper.addUser(url, groupName, userName);
     }
 
     @DeleteMapping("/delUser")
     public boolean delUser(@RequestParam(value = "gname") String groupName, @RequestParam(value = "uname") String userName){
-        boolean ret =  aipfaceUserOperationHelper.deleteUser(userName, groupName);
-        return ret;
+        return aipfaceUserOperationHelper.deleteUser(userName, groupName);
     }
 
 
@@ -94,14 +88,12 @@ public class AipfaceController {
      * */
     @GetMapping("/findImageList")
     public List<SimpleFaceInfo>findImageList(@RequestParam(value = "gname") String groupName, @RequestParam(value = "uname") String userName){
-        List<SimpleFaceInfo>ret = aipfaceFaceSearchHelper.selectFaceList(groupName,userName);
-        return ret;
+        return aipfaceFaceSearchHelper.selectFaceList(groupName,userName);
     }
 
     @DeleteMapping("/delImage")
     public boolean delImage(@RequestParam(value = "gname") String groupName, @RequestParam(value = "uname") String userName, @RequestParam(value = "url") String url){
-        boolean ret =  aipfaceFaceOperationHelper.deleteUser(groupName, userName, url);
-        return ret;
+        return aipfaceFaceOperationHelper.deleteUser(groupName, userName, url);
     }
 
     @PostMapping("/addImage")
@@ -109,7 +101,6 @@ public class AipfaceController {
         ArrayList<FaceInfo> list = aipfaceDetectHelper.detect(url, false).getFace_list();
         if(list.size() == 0) return false;
         if(list.get(0).getFace_probability() < 0.6) return false;
-        aipfaceFaceOperationHelper.updateUser(url, groupName, userName);
-        return true;
+        return aipfaceFaceOperationHelper.updateUser(url, groupName, userName);
     }
 }
