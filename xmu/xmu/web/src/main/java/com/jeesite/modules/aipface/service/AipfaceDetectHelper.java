@@ -162,6 +162,7 @@ public class AipfaceDetectHelper
 
      private FaceSearchRet transjson(JSONObject json)
      {
+         if(!json.has("result")) return null;
          JSONObject result = json.getJSONObject("result");
 
          FaceSearchRet res = new FaceSearchRet();
@@ -195,10 +196,10 @@ public class AipfaceDetectHelper
      * @param groupID 欲查询的组ID
      * @param maxCount 查找后返回的用户数量，返回相似度最高的几个用户，默认为1
      */
-    public FaceSearchRet searchOneToN(String url, String groupID, Integer maxCount)
+    public FaceSearchRet searchOneToN(String base64, String groupID, Integer maxCount)
     {
         HashMap<String, String> options = new HashMap<String, String>();
-        String imageStr = BASE64Util.convertFileToBase64(url);
+        String imageStr = base64;
         String imageType = "BASE64";
         if(maxCount == null) maxCount = 1;
         options.put("max_user_num", maxCount.toString());

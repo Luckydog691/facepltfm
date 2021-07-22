@@ -81,6 +81,18 @@ public class AipfaceController {
     }
 
 
+    @PostMapping("/matUser")
+    @ResponseBody
+    public String matUser(@RequestBody HashMap<String,String> mp){
+        String url = mp.get("url");
+        String groupName = mp.get("gname");
+        url = url.substring(url.indexOf(',') + 1);
+        FaceSearchRet res = aipfaceDetectHelper.searchOneToN(url, groupName, 1);
+        ArrayList<User> list = res.getUser_list();
+        if(list == null || list.size() == 0) return "!";
+        else return list.get(0).getUser_id();
+    }
+
     /*
      *
      * Image页面需要用的接口
