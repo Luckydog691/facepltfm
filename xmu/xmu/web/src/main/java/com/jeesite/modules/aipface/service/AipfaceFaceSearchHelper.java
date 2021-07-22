@@ -2,6 +2,7 @@ package com.jeesite.modules.aipface.service;
 
 import com.alibaba.fastjson.JSON;
 import com.baidu.aip.face.AipFace;
+import com.jeesite.common.beetl.a.A;
 import com.jeesite.modules.aipface.ConnectionSingleton;
 import com.jeesite.modules.aipface.entity.Group;
 import com.jeesite.modules.aipface.entity.SimpleFaceInfo;
@@ -70,6 +71,14 @@ public class AipfaceFaceSearchHelper
         HashMap<String, String> options = new HashMap<String, String>();
         options.put("length", length.toString());
         JSONObject res = instance.getGroupUsers(groupID,options);
+        if(!res.has("result"))
+        {
+            ArrayList<SimpleUserInfo> err1 = new ArrayList<>();
+            SimpleUserInfo simpleUserInfo = new SimpleUserInfo();
+            simpleUserInfo.setUser_name("!");
+            err1.add(simpleUserInfo);
+            return err1;
+        }
         JSONArray user_id_list = res.getJSONObject("result").getJSONArray("user_id_list");
 
         ArrayList<SimpleUserInfo> ret = new ArrayList<>();
