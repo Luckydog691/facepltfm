@@ -71,7 +71,7 @@ public class AipfaceFaceOperationHelper
     public boolean updateUser(String url, String groupID, String userID)
     {
         HashMap<String, String> options = new HashMap<String, String>();
-        String imageStr = BASE64Util.convertFileToBase64(url);
+        String imageStr = url;
         String imageType = "BASE64";
         JSONObject res = instance.updateUser(imageStr, imageType, groupID, userID, options);
         System.out.println(res);
