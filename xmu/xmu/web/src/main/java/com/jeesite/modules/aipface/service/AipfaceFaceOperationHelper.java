@@ -23,8 +23,9 @@ public class AipfaceFaceOperationHelper
     }
 
 
-    private FaceOperationRet tranpic(JSONObject res)
+    private boolean tranpic(JSONObject res)
     {
+        if(!res.has("result")) return false;
         JSONObject result = res.getJSONObject("result");
 
         FaceOperationRet ret = new FaceOperationRet();
@@ -38,7 +39,7 @@ public class AipfaceFaceOperationHelper
                 result.getJSONObject("location").getDouble("height")
         ));
 
-        return ret;
+        return true;
     }
 
     /*
@@ -48,7 +49,7 @@ public class AipfaceFaceOperationHelper
      * @param groupID 组ID
      * @param userID 用户ID
      */
-    public FaceOperationRet addUser(String url, String groupID, String userID)
+    public boolean addUser(String url, String groupID, String userID)
     {
         HashMap<String, String> options = new HashMap<String, String>();
         //String imageStr = BASE64Util.convertFileToBase64(url);
@@ -67,7 +68,7 @@ public class AipfaceFaceOperationHelper
      * @param groupID 组ID
      * @param userID 用户ID
      */
-    public FaceOperationRet updateUser(String url, String groupID, String userID)
+    public boolean updateUser(String url, String groupID, String userID)
     {
         HashMap<String, String> options = new HashMap<String, String>();
         String imageStr = BASE64Util.convertFileToBase64(url);
