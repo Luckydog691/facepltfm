@@ -1,9 +1,6 @@
 package com.jeesite.modules.aipface.controller;
 
-import com.jeesite.modules.aipface.entity.FaceInfo;
-import com.jeesite.modules.aipface.entity.Group;
-import com.jeesite.modules.aipface.entity.SimpleFaceInfo;
-import com.jeesite.modules.aipface.entity.SimpleUserInfo;
+import com.jeesite.modules.aipface.entity.*;
 import com.jeesite.modules.aipface.service.AipfaceDetectHelper;
 import com.jeesite.modules.aipface.service.AipfaceFaceOperationHelper;
 import com.jeesite.modules.aipface.service.AipfaceFaceSearchHelper;
@@ -75,7 +72,8 @@ public class AipfaceController {
         String groupName = mp.get("gname");
         String userName = mp.get("uname");
         url = url.substring(url.indexOf(',') + 1);
-        ArrayList<FaceInfo> list = aipfaceDetectHelper.detect(url).getFace_list();
+        ImageInfo imageInfo = aipfaceDetectHelper.detect(url, false);
+        ArrayList<FaceInfo> list = imageInfo.getFace_list();
         if(list.size() == 0) return false;
         if(list.get(0).getFace_probability() < 0.6) return false;
         aipfaceFaceOperationHelper.addUser(url, groupName, userName);
@@ -108,7 +106,7 @@ public class AipfaceController {
 
     @PostMapping("/addImage")
     public boolean addImage(@RequestParam(value = "url") String url, @RequestParam(value = "gname") String groupName, @RequestParam(value = "uname") String userName){
-        ArrayList<FaceInfo> list = aipfaceDetectHelper.detect(url).getFace_list();
+        ArrayList<FaceInfo> list = aipfaceDetectHelper.detect(url, false).getFace_list();
         if(list.size() == 0) return false;
         if(list.get(0).getFace_probability() < 0.6) return false;
         aipfaceFaceOperationHelper.updateUser(url, groupName, userName);

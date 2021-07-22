@@ -26,12 +26,20 @@ public class AipfaceDetectHelper
      *
      * @param url 图片url
      */
-     public ImageInfo detect(String url)
+     public ImageInfo detect(String msg, boolean typ)
      {
-         String imageStr = BASE64Util.convertFileToBase64(url);
-         String imageType = "BASE64";
+         String imageStr = new String();
+         String imageType = new String("BASE64");
          HashMap<String, String> options = new HashMap<String, String>();
          options.put("face_field", "age,beauty,expression,face_shape,gender,glasses,landmark,landmark72,landmark150,quality,eye_status,emotion,face_type");
+
+         if(typ == true) {
+             imageStr = BASE64Util.convertFileToBase64(msg);
+         }
+         else {
+             imageStr = msg;
+         }
+
          JSONObject ret = instance.detect(imageStr,imageType,options);
          System.out.println(ret);
 

@@ -15,7 +15,7 @@ public class baidutest {
     @Test
     public void detest()
     {
-        adh.detect("src/main/resources/img/black.jpg");
+        adh.detect("src/main/resources/img/black.jpg", true);
     }
 
     @Test
