@@ -118,20 +118,4 @@ public class AipfaceController {
     public boolean delImage(@RequestParam(value = "gname") String groupName, @RequestParam(value = "uname") String userName, @RequestParam(value = "url") String url){
         return aipfaceFaceOperationHelper.deleteUser(groupName, userName, url);
     }
-<<<<<<< Updated upstream
-
-    @PostMapping("/addImage")
-    public boolean addImage(@RequestBody HashMap<String,String> mp){
-        String url = mp.get("url");
-        String groupName = mp.get("gname");
-        String userName = mp.get("uname");
-        url = url.substring(url.indexOf(',') + 1);
-        ImageInfo imageInfo = aipfaceDetectHelper.detect(url, false);
-        ArrayList<FaceInfo> list = imageInfo.getFace_list();
-        if(list.size() == 0) return false;
-        if(list.get(0).getFace_probability() < 0.6) return false;
-        return aipfaceFaceOperationHelper.updateUser(url, groupName, userName);
-    }
-=======
->>>>>>> Stashed changes
 }
