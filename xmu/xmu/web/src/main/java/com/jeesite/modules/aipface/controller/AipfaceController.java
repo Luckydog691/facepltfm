@@ -105,8 +105,8 @@ public class AipfaceController {
     }
 
     @DeleteMapping("/delImage")
-    public boolean delImage(@RequestParam(value = "gname") String groupName, @RequestParam(value = "uname") String userName, @RequestParam(value = "url") String url){
-        return aipfaceFaceOperationHelper.deleteUser(groupName, userName, url);
+    public boolean delImage(@RequestParam(value = "gname") String groupName, @RequestParam(value = "uname") String userName, @RequestParam(value = "token") String token){
+        return aipfaceFaceOperationHelper.deleteUser(groupName, userName, token);
     }
 
     @PostMapping("/addImage")

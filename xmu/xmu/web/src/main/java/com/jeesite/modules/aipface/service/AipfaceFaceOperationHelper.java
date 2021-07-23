@@ -84,7 +84,7 @@ public class AipfaceFaceOperationHelper
      * @param groupID 组ID
      * @param userID 用户ID
      */
-    public boolean deleteUser(String groupID, String userID,String faceToken)
+    public boolean deleteUser(String groupID, String userID, String faceToken)
     {
         // 传入可选参数调用接口
         HashMap<String, String> options = new HashMap<String, String>();
