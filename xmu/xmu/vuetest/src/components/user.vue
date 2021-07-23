@@ -1,12 +1,6 @@
 
 <template>
   <div>
-    <!-- 新增人脸 的 dialog -->
-
-
-
-
-
 
     <!-- 删除用户 的 dialog-->
     <el-dialog
@@ -91,6 +85,7 @@
 
     <el-container style="height: 500px; border: 1px solid #eee">
       <el-header style="text-align: right; font-size: 12px">
+        <el-button @click="addUserDialogVisible=true">1:N识别</el-button>
         <el-button @click="addUserDialogVisible=true">新建用户</el-button>
       </el-header>
       <el-table :data="users" border height="250" class="data_table">

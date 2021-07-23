@@ -1,8 +1,6 @@
 package com.jeesite.modules.aipface;
 
-import com.jeesite.modules.aipface.service.AipfaceDetectHelper;
-import com.jeesite.modules.aipface.service.AipfaceFaceOperationHelper;
-import com.jeesite.modules.aipface.service.AipfaceFaceSearchHelper;
+import com.jeesite.modules.aipface.service.*;
 import org.junit.Test;
 
 
@@ -45,7 +43,7 @@ public class baidutest {
     @Test
     public void deltest()
     {
-        afoh.deleteUser("LawrenLang", "nig2", "bc3a3ae5dd69b9edbfc5ba2695659092");
+
     }
 
     @Test

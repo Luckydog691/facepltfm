@@ -1,10 +1,7 @@
 package com.jeesite.modules.aipface.controller;
 
 import com.jeesite.modules.aipface.entity.*;
-import com.jeesite.modules.aipface.service.AipfaceDetectHelper;
-import com.jeesite.modules.aipface.service.AipfaceFaceOperationHelper;
-import com.jeesite.modules.aipface.service.AipfaceFaceSearchHelper;
-import com.jeesite.modules.aipface.service.AipfaceUserOperationHelper;
+import com.jeesite.modules.aipface.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +26,7 @@ public class AipfaceController {
 
     @Autowired
     AipfaceDetectHelper aipfaceDetectHelper;
+
 
     /*
     *
@@ -105,8 +103,11 @@ public class AipfaceController {
     }
 
     @DeleteMapping("/delImage")
-    public boolean delImage(@RequestParam(value = "gname") String groupName, @RequestParam(value = "uname") String userName, @RequestParam(value = "token") String token){
-        return aipfaceFaceOperationHelper.deleteUser(groupName, userName, token);
+    public boolean delImage(@RequestBody HashMap<String,String> mp){
+        String token = mp.get("token");
+        String groupName = mp.get("gname");
+        String userName = mp.get("uname");
+        return aipfaceFaceOperationHelper.deleteImg(groupName, userName, token);
     }
 
     @PostMapping("/addImage")
