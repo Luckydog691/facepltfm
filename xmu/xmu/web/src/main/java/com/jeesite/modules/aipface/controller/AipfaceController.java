@@ -93,6 +93,17 @@ public class AipfaceController {
         else return list.get(0).getUser_id();
     }
 
+    @PostMapping("/addImage")
+    public boolean addImage(@RequestBody HashMap<String,String> mp){
+        String url = mp.get("url");
+        String groupName = mp.get("gname");
+        String userName = mp.get("uname");
+        ArrayList<FaceInfo> list = aipfaceDetectHelper.detect(url, false).getFace_list();
+        if(list.size() == 0) return false;
+        if(list.get(0).getFace_probability() < 0.6) return false;
+        return aipfaceFaceOperationHelper.updateUser(url, groupName, userName);
+    }
+
     /*
      *
      * Image页面需要用的接口
@@ -107,6 +118,7 @@ public class AipfaceController {
     public boolean delImage(@RequestParam(value = "gname") String groupName, @RequestParam(value = "uname") String userName, @RequestParam(value = "url") String url){
         return aipfaceFaceOperationHelper.deleteUser(groupName, userName, url);
     }
+<<<<<<< Updated upstream
 
     @PostMapping("/addImage")
     public boolean addImage(@RequestBody HashMap<String,String> mp){
@@ -120,4 +132,6 @@ public class AipfaceController {
         if(list.get(0).getFace_probability() < 0.6) return false;
         return aipfaceFaceOperationHelper.updateUser(url, groupName, userName);
     }
+=======
+>>>>>>> Stashed changes
 }

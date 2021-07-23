@@ -18,7 +18,7 @@
     <!-- 新建人脸组 的 dialog-->
     <el-dialog
       title="新建人脸组"
-      :visible.sync="addDialogVisible"
+      :visible.sync="addUserDialogVisible"
       width="30%"
       @close="closeDialog"
     >
@@ -36,7 +36,7 @@
 
     <el-container style="height: 500px; border: 1px solid #eee">
       <el-header style="text-align: right; font-size: 12px">
-        <el-button @click="addDialogVisible=true">新建人脸组</el-button>
+        <el-button @click="addUserDialogVisible=true">新建人脸组</el-button>
       </el-header>
       <el-table :data="groups" border height="250" class="data_table">
         <el-table-column prop="group_id" align="center" label="组名" width="640"></el-table-column>
@@ -62,7 +62,7 @@ export default {
   name: "group",
   data(){
     return {
-      addDialogVisible: false,
+      addUserDialogVisible: false,
       delDialogVisible: false,
       preDeleteGroupName: "",
       groupForm: {
@@ -85,7 +85,7 @@ export default {
   methods:{
     //关闭窗口
     closeDialog() {
-      this.addDialogVisible = false
+      this.addUserDialogVisible = false
       this.delDialogVisible = false
     },
     //新建人脸组
@@ -101,7 +101,7 @@ export default {
         data: {
         }
       })
-      this.addDialogVisible = false
+      this.addUserDialogVisible = false
       //刷新数据
       this.$router.go(0)
     },
