@@ -1,7 +1,45 @@
 
 <template>
   <div>
-
+    <!-- 1:N 人脸匹配 的 dialog -->
+    <el-dialog
+      title="请上传人脸照片，进行1:N人脸匹配"
+      :visible.sync="matchDialogVisible"
+      width="70%"
+      @close="closeDialog"
+    >
+      <el-upload
+        accept="image/jpeg,image/gif,image/png"
+        action="#"
+        :http-request="httpRequest"
+        :show-file-list="false"
+        :before-upload="beforeAvatarUpload"
+        list-type="picture"
+      >
+        <img v-if="userForm.url" :src="userForm.url" class="avatar" width="108" height="108">
+        <el-button size="small" type="primary">
+          <div v-if="userForm.url">更换图片</div><div v-else>上传图片</div>
+        </el-button>
+      </el-upload>
+      <template #footer>
+            <span class="dialog-footer">
+              <el-button type="primary" @click="matchUser()">确 定</el-button>
+            </span>
+      </template>
+    </el-dialog>
+    <!-- 人脸匹配结果 的 dialog-->
+    <el-dialog
+      title="匹配结果"
+      :visible.sync="resultDialogVisible"
+      width="30%"
+      @close="closeDialog">
+      <span>
+      <div v-if="!this.resultString">没有匹配到合适的结果！</div><div v-else>相似度最高的用户：{{this.resultString}}</div>
+      </span>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="closeDialog()">确 定</el-button>
+      </span>
+    </el-dialog>
     <!-- 删除用户 的 dialog-->
     <el-dialog
       title="警告"
@@ -85,7 +123,7 @@
 
     <el-container style="height: 500px; border: 1px solid #eee">
       <el-header style="text-align: right; font-size: 12px">
-        <el-button @click="addUserDialogVisible=true">1:N识别</el-button>
+        <el-button @click="matchDialogVisible=true">1:N识别</el-button>
         <el-button @click="addUserDialogVisible=true">新建用户</el-button>
       </el-header>
       <el-table :data="users" border height="250" class="data_table">
@@ -117,6 +155,9 @@ export default {
   name: "user",
   data(){
     return {
+      resultString: "",
+      matchDialogVisible: false,
+      resultDialogVisible: false,
       delDialogVisible: false,
       addUserDialogVisible: false,
       addFaceDialogVisible: false,
@@ -155,6 +196,8 @@ export default {
       this.delDialogVisible = false
       this.addUserDialogVisible = false
       this.addFaceDialogVisible = false
+      this.matchDialogVisible = false
+      this.resultDialogVisible = false
       this.userForm.url = null
       this.userForm.name = null
     },
@@ -170,6 +213,28 @@ export default {
         this.$message.error('上传头像图片大小不能超过 2MB!');
       }
       return isJPG && isLt2M;
+    },
+    //1:N 匹配
+    matchUser()
+    {
+       this.matchDialogVisible = false
+       if (!this.userForm.url) {
+          this.$message.error('图片不能为空!');
+          return;
+       }
+      axios.post('http://localhost:8080/web/sample/aipface/matUser', {
+        gname: this.groupName,
+        url: this.userForm.url
+      })
+        .then(val =>  {
+           this.resultString = val.data
+           if(val.data=='!')this.resultString = null
+           this.resultDialogVisible = true
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      //刷新数据
     },
     //上传用户图片信息
     uploadUser(userName,imgUrl){
@@ -200,31 +265,6 @@ export default {
     loginImage(userName){
       this.userForm.name = userName
       this.addFaceDialogVisible = true
-    },
-    //为用户新加人脸
-    addUserFace(userName,imgUrl){
-      if (!userName) {
-        this.$message.error('用户名不能为空!');
-        return;
-      }
-      if (!imgUrl) {
-        this.$message.error('图片不能为空!');
-        return;
-      }
-      axios.post('http://localhost:8080/web/sample/aipface/addImage', {
-        gname: this.groupName,
-        uname: userName,
-        url: imgUrl
-      })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      //刷新数据
-      this.closeDialog()
-      this.$router.go(0)
     },
     httpRequest (data) {
       let _this = this
